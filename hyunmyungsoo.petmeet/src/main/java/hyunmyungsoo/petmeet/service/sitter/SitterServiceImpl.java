@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,17 +18,16 @@ import hyunmyungsoo.petmeet.domain.Sitter;
 public class SitterServiceImpl implements SitterService {
 	@Autowired private SitterDao sitterDao;
 	@Override
-	public List<Sitter> getSitters(){
-		return sitterDao.selectSitters();
-	}
-	
-	@Override
 	public boolean addSitter(Sitter sitter) {
 		return sitterDao.insertSitter(sitter);
 	}
 	
 	@Override
-	public void assignSitter(HttpSession session, String sitterTitle, String sitterContent, String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, String sitterLocDong, String daterange) throws ParseException {
+	public void assignSitter(HttpSession session, String sitterTitle, 
+			String sitterContent, 
+			String sitterPetType, String sitterPetSize, String sitterLocSi, 
+			String sitterLocGu, String sitterLocDong, String daterange,
+			String fileName) throws ParseException {
 		Sitter sitter = new Sitter();
 
 		int idx = daterange.indexOf("-");
@@ -61,6 +59,7 @@ public class SitterServiceImpl implements SitterService {
 		sitter.setSitterLocDong(sitterLocDong);
 		sitter.setSitterStart(sitterStart);
 		sitter.setSitterFinish(sitterFinish);
+		sitter.setSitterFileName(fileName);
 		
 		addSitter(sitter);
 	}

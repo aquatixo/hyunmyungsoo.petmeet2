@@ -10,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <title>Pet & Meet</title>
 </head>
-
 <script>
 $(() => {
 	$('#animalType').click(function(){
@@ -32,7 +31,26 @@ $(function() {
 	    console.log($('input[name="daterange"]').val());
 	  });
 	});
+function showImg(input) {
+	   if(input.files[0]) { // 파일이 있는지 확인
+	      let reader = new FileReader();
+	                     // load이벤트가 발생하면 실행되는 리스너 callback
+	      reader.addEventListener('load', () => {
+	         $('#previewImg').attr('src', reader.result); // img미리보기가 나타남
+	      }, false) // 자바스크립트가 제공하는 리스너
+	      
+	      reader.readAsDataURL(input.files[0]); // 선택한 파일을 읽어들인다.
+	   }
+	}	
+$(() => {
+	   $('input').change(function() {
+	      showImg(this);
+	   });
+	});	
 </script>
+<%
+	Object userId = session.getAttribute("userEmail");
+%>
 <body>
 	<div class='container'>
 		<%@ include file= '../include/header.jsp' %>
@@ -42,19 +60,32 @@ $(function() {
 		</div>
 		<hr class='color'>
 
-		<div class='sitterInbox row form-inline justify-content-center ml-1'>
-			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div>
-			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div>
-		</div>
-		<div class='sitterInbox row form-inline justify-content-center ml-1'>
-			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div>
-			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div>
-		</div>
-		<div class='row justify-content-center'>
-			<input type='file' class='mt-2' id='upFile' value='이미지 등록' multiple/>			
-		</div>
-		
-		<form id='sitterInForm justify-content-center mt-3' method='post'>
+<!-- 		<div class='sitterInbox row form-inline justify-content-center ml-1'> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 		</div> -->
+<!-- 		<div class='sitterInbox row form-inline justify-content-center ml-1'> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 		</div> -->
+<!-- 		<div class='row justify-content-center'> -->
+<!-- 			<input type='file' class='mt-2' id='upFile' value='이미지 등록' multiple/>			 -->
+<!-- 		</div> -->
+		<img id='previewImg'/>
+		<form id='sitterInForm justify-content-center mt-3' method='post' enctype='multipart/form-data'>
+				<div class='form-row'>
+					<div class='form-group col-4'>
+						<div class='custom-file'>
+							<input name='attachFile' type='file' class='custom-file-input' id='attachFile'/>
+							<label class='custom-file-label' for='attachFile'>파일찾기</label>
+						</div>
+					</div>
+				</div>
+				<div class='form-group row' hidden>			
+				<input name='userId' type='text' class='form-control' id='userId'
+						value='<%=userId%>'/>
+				</div>
+				
 				<input type='text' class='form-control col-12 mt-3 font color' id='sitterTitle' name='sitterTitle'
 					placeholder='제목을 입력하세요.'/>
 				<textarea class='form-control mt-2 col-12 font color' id='sitterContent' name='sitterContent'
