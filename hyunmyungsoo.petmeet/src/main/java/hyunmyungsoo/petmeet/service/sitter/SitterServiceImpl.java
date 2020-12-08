@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +18,7 @@ import hyunmyungsoo.petmeet.domain.Sitter;
 public class SitterServiceImpl implements SitterService {
 	@Autowired private SitterDao sitterDao;
 	@Override
+<<<<<<< HEAD
 	public List<Sitter> getSitters(){
 		return sitterDao.selectSitters();
 	}
@@ -29,6 +29,8 @@ public class SitterServiceImpl implements SitterService {
 	}
 	
 	@Override
+=======
+>>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
 	public boolean addSitter(Sitter sitter) {
 		return sitterDao.insertSitter(sitter);
 	}

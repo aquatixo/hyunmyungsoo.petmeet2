@@ -60,6 +60,7 @@ $(() => {
 		</div>
 		<hr class='color'>
 
+<<<<<<< HEAD
 
 		<img id='previewImg'/>
 		<form id='sitterInForm justify-content-center mt-3' method='post' enctype='multipart/form-data'>
@@ -74,6 +75,32 @@ $(() => {
 				<div class='form-group row' hidden>			
 				<input name='userId' type='text' class='form-control' id='userId'
 						value='<%=userId%>' />
+=======
+<!-- 		<div class='sitterInbox row form-inline justify-content-center ml-1'> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 		</div> -->
+<!-- 		<div class='sitterInbox row form-inline justify-content-center ml-1'> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 			<div class='newImg mt-1 ml-1 mr-1'>집 이미지</div> -->
+<!-- 		</div> -->
+<!-- 		<div class='row justify-content-center'> -->
+<!-- 			<input type='file' class='mt-2' id='upFile' value='이미지 등록' multiple/>			 -->
+<!-- 		</div> -->
+		<img id='previewImg'/>
+		<form id='sitterInForm justify-content-center mt-3' method='post' enctype='multipart/form-data'>
+				<div class='form-row'>
+					<div class='form-group col-4'>
+						<div class='custom-file'>
+							<input name='attachFile' type='file' class='custom-file-input' id='attachFile'/>
+							<label class='custom-file-label' for='attachFile'>파일찾기</label>
+						</div>
+					</div>
+				</div>
+				<div class='form-group row' hidden>			
+				<input name='userId' type='text' class='form-control' id='userId'
+						value='<%=userId%>'/>
+>>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
 				</div>
 				
 				<input type='text' class='form-control col-12 mt-3 font color' id='sitterTitle' name='sitterTitle'
