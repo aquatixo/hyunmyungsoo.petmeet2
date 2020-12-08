@@ -19,13 +19,13 @@
 	
 	<div class='row mt-4'>
 		<a href='../user/userInformation' class='offset-2 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>내 정보</a>
-		<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>펫 시팅<br>등록</a>
-		<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>펫 시팅<br>수정삭제</a>
+		<a href='../sitter/insertSitter' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>펫 시팅<br>등록</a>
+		<a href='../sitter/upDelSitter' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>펫 시팅<br>수정삭제</a>
 	</div>
 	<div class='row mt-3 mb-4 text-center'>
 		<a href='#' class='offset-2 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>메시지</a>
 		<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>예약 확인</a>
-		<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>관심</a>
+		<a href='../like/listLike' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>관심</a>
 		<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>후기</a>
 	</div>
 	<hr class='color'>

@@ -29,8 +29,9 @@ public class AdminCommonController {
 		String dir = request.getServletContext().getRealPath(attachDir);
 		
 		String fileName = attachFile.getOriginalFilename();
+		if(!attachFile.isEmpty()) {
 		save(dir + "/" + fileName, attachFile);
-		
+		}
 		return "redirect:../main";
 	}
 	

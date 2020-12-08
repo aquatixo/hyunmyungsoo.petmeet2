@@ -10,18 +10,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import hyunmyungsoo.petmeet.service.sitter.SitterService;
 import hyunmyungsoo.petmeet.service.user.UserService;
 
-@Controller
+@Controller("yjcon")
 public class SitterController {
 	@Autowired private SitterService sitterService;
-<<<<<<< HEAD
 	@Autowired private UserService userService;
 	@Value("img")
 	private String attachDir;
@@ -32,10 +33,6 @@ public class SitterController {
 		model.addAttribute("userList", userService.getUsers());
 		return "sitter/sitterMain";
 	}
-=======
-	@Value("img")
-	private String attachDir;
->>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
 	
 	@GetMapping("/sitter/insertSitter")
 	public String insertSitterPage() {
@@ -45,24 +42,18 @@ public class SitterController {
 	@PostMapping("/sitter/insertSitter")
 	public String insertSitterPage(@RequestParam("sitterTitle") String sitterTitle,
 			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType,
-<<<<<<< HEAD
-					
-=======
->>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
 			@RequestParam("sitterPetSize") String sitterPetSize, @RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu,
 			@RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange, 
 			HttpSession session, HttpServletRequest request,
 			@RequestParam MultipartFile attachFile,
 			@RequestParam("userId") String userId) throws ParseException {
-		
 		String dir = request.getServletContext().getRealPath(attachDir);
 		
 		String fileName = "sitter" + userId + ".PNG";
-		
+		if(!attachFile.isEmpty()) {
 		save(dir + "/" + fileName, attachFile);
-		
+		}
 		sitterService.assignSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, fileName);
-<<<<<<< HEAD
 		return "redirect:../common/mypage";
 	}
 	
@@ -84,21 +75,18 @@ public class SitterController {
 	@PostMapping("/sitter/upDelSitter")
 	public String fixUser(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
 			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType, @RequestParam("sitterPetSize") String sitterPetSize,
-			@RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu, @RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange, HttpSession session) throws ParseException {
+			@RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu, @RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange,
+			HttpSession session,HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam MultipartFile attachFile ) throws ParseException {
 		
-		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange);
-=======
->>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
+			String dir = request.getServletContext().getRealPath(attachDir);
+		
+		String fileName = "sitter" + userId + ".PNG";
+		if(!attachFile.isEmpty()) {
+			save(dir + "/" + fileName, attachFile);
+			}
+		
+		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, fileName);
 		return "redirect:../common/mypage";
 	}
-	
-	private void save(String fileName, MultipartFile attachFile) {
-		try {
-			attachFile.transferTo(new File(fileName));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 }
 

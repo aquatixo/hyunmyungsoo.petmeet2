@@ -122,9 +122,6 @@ $(function() {
 			</div>
 		</form>
 
-
-		
-
 		<div class='modal fade' id='sitterDelMod' tabindex='-1'>
 			<div class='modal-dialog'>
 				<div class='modal-content'>
