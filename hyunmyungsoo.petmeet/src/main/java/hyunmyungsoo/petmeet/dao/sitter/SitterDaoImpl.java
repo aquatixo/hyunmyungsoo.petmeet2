@@ -18,7 +18,17 @@ public class SitterDaoImpl implements SitterDao {
 	}
 	
 	@Override
+	public Sitter selectSitter(String userId) {
+		return sitterMap.selectSitter(userId);
+	}
+	
+	@Override
 	public boolean insertSitter(Sitter sitter) {
 		return sitterMap.insertSitter(sitter);
+	}
+	
+	@Override
+	public boolean updateSitter(Sitter sitter) {
+		return sitterMap.updateSitter(sitter);
 	}
 }

@@ -24,12 +24,21 @@ public class SitterServiceImpl implements SitterService {
 	}
 	
 	@Override
+	public Sitter getSitter(String userId) {
+		return sitterDao.selectSitter(userId);
+	}
+	
+	@Override
 	public boolean addSitter(Sitter sitter) {
 		return sitterDao.insertSitter(sitter);
 	}
 	
 	@Override
-	public void assignSitter(HttpSession session, String sitterTitle, String sitterContent, String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, String sitterLocDong, String daterange) throws ParseException {
+	public void assignSitter(HttpSession session, String sitterTitle, 
+			String sitterContent, 
+			String sitterPetType, String sitterPetSize, String sitterLocSi, 
+			String sitterLocGu, String sitterLocDong, String daterange,
+			String fileName) throws ParseException {
 		Sitter sitter = new Sitter();
 
 		int idx = daterange.indexOf("-");
@@ -61,7 +70,47 @@ public class SitterServiceImpl implements SitterService {
 		sitter.setSitterLocDong(sitterLocDong);
 		sitter.setSitterStart(sitterStart);
 		sitter.setSitterFinish(sitterFinish);
+		sitter.setSitterFileName(fileName);
 		
 		addSitter(sitter);
+	}
+	
+	@Override
+	public boolean fixSitter(HttpSession session, String sitterTitle, String sitterContent, 
+			String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, 
+			String sitterLocDong, String daterange) throws ParseException {
+		
+		Sitter sitter = new Sitter();
+		int idx = daterange.indexOf("-");
+		String sitterStartDate = daterange.substring(0, idx-1);
+		String sitterFinishDate = daterange.substring(idx+2);
+		
+		SimpleDateFormat beforeFormat = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+		
+		Date before = beforeFormat.parse(sitterStartDate);
+		String after = afterFormat.format(before);
+		
+		LocalDate sitterStart = LocalDate.parse(after, DateTimeFormatter.ISO_DATE);
+		
+		before = beforeFormat.parse(sitterFinishDate);
+		after = afterFormat.format(before);
+		
+		LocalDate sitterFinish = LocalDate.parse(after, DateTimeFormatter.ISO_DATE);
+		
+		String userId = session.getAttribute("userEmail").toString();
+		
+		sitter.setUserId(userId);
+		sitter.setSitterTitle(sitterTitle);
+		sitter.setSitterContent(sitterContent);
+		sitter.setSitterPetType(sitterPetType);
+		sitter.setSitterPetSize(sitterPetSize);
+		sitter.setSitterLocSi(sitterLocSi);
+		sitter.setSitterLocGu(sitterLocGu);
+		sitter.setSitterLocDong(sitterLocDong);
+		sitter.setSitterStart(sitterStart);
+		sitter.setSitterFinish(sitterFinish);
+		
+		return sitterDao.updateSitter(sitter);
 	}
 }

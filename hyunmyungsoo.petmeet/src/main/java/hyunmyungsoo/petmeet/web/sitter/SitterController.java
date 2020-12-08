@@ -65,4 +65,21 @@ public class SitterController {
 			e.printStackTrace();
 		}
 	}
+
+	@GetMapping("/sitter/upDelSitter")
+	public String updDelSitterPage(Model model, HttpSession session) {
+		String userId = session.getAttribute("userEmail").toString();
+		model.addAttribute("sitter", sitterService.getSitter(userId));
+		return "sitter/upDelSitter";
+	}
+	
+	@PostMapping("/sitter/upDelSitter")
+	public String fixUser(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
+			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType, @RequestParam("sitterPetSize") String sitterPetSize,
+			@RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu, @RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange, HttpSession session) throws ParseException {
+		
+		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange);
+		return "redirect:../common/mypage";
+	}
 }
+
