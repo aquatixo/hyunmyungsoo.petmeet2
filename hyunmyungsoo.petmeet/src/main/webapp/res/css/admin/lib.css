@@ -54,41 +54,6 @@
    float: left;
 }
 
-/*logo*/
-.body {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   text-align: center;
-   align-items: center;
-   height: 500px;
-}
-
-.img_wrap {
-   width: 620px;
-   height: 300px;
-   margin-top: 50px;
-   border: 1px solid black;
-}
-
-#input_img {
-   margin-top: 30px;
-}
-
-.img_wrap img {
-   max-height: 100%;
-}
-
-.submitBtn {
-   float: right;
-}
-
-.myImg { /*로고 이미지들*/
-   width: 40%;
-   height: 200px;
-   border: 1px solid gray;
-}
-
 /*review*/
 .reviewList {
    padding-top: 20px;
