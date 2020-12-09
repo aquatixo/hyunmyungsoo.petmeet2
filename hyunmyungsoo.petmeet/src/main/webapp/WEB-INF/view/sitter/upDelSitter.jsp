@@ -16,10 +16,12 @@ $(() => {
 		var choice = $('#animalType option:selected').val();
 		if(choice == '강아지') {
 			$('#dogType').removeAttr('hidden');
+			$('#dogType').attr('required', true);
 		}
 		
 		else if(choice == '고양이'){
 			$('#dogType').attr('hidden', 'true');
+			$('#dogType option:selected').val(null);
 		}
 	});
 });
@@ -70,16 +72,51 @@ $(function() {
 			<div class='form-group row sitterOption mt-2 mb-0'>
 				<select id='animalType' name='sitterPetType'
 					class='form-control col-4 ml-3 font color'>
-					<option value='${sitter.sitterPetType }' selected disabled hidden>${sitter.sitterPetType }</option>
-					<option>강아지</option>
-					<option>고양이</option>
-				</select> <select id='dogType' name='sitterPetSize'
-					class='form-control col-4 ml-1 font color'>
-					<option value='${sitter.sitterPetSize }' selected disabled hidden>${sitter.sitterPetSize }</option>
-					<option>대형견</option>
-					<option>중형견</option>
-					<option>소형견</option>
+					<c:if test='${sitter.sitterPetType eq "강아지" }'>
+						<option selected>강아지</option>
+						<option>고양이</option>
+					</c:if>
+					<c:if test='${sitter.sitterPetType eq "고양이" }'>
+						<option>강아지</option>
+						<option selected>고양이</option>
+					</c:if>
 				</select>
+
+				<c:if test='${sitter.sitterPetType eq "고양이" }'>
+					<select id='dogType' name='sitterPetSize'
+						class='form-control col-4 ml-1 font color' hidden>
+						<option>대형견</option>
+						<option>중형견</option>
+						<option>소형견</option>
+					</select>
+				</c:if>
+				
+				<c:if test='${sitter.sitterPetType eq "강아지" }'>
+					<select id='dogType' name='sitterPetSize'
+						class='form-control col-4 ml-1 font color'>
+						<c:if test='${sitter.sitterPetSize eq "대형견" }'>
+							<option selected>대형견</option>
+							<option>중형견</option>
+							<option>소형견</option>
+						</c:if>
+						<c:if test='${sitter.sitterPetSize eq "중형견" }'>
+							<option>대형견</option>
+							<option selected>중형견</option>
+							<option>소형견</option>
+						</c:if>
+						<c:if test='${sitter.sitterPetSize eq "소형견" }'>
+							<option>대형견</option>
+							<option>중형견</option>
+							<option selected>소형견</option>
+						</c:if>
+						<c:if test='${sitter.sitterPetSize eq null }'>
+							<option value='' selected disabled hidden></option>
+							<option>대형견</option>
+							<option>중형견</option>
+							<option>소형견</option>
+						</c:if>
+					</select>
+				</c:if>
 			</div>
 
 			<div class='form-group row sitterOption mt-2'>
@@ -142,6 +179,20 @@ $(function() {
 					</div>
 				</div>
 			</div>
+			<!-- <div class='modal fade' id='sitterDelMod' tabindex='-1'>
+				<div class='modal-dialog'>
+					<div class='modal-content'>
+						<div class='modal-body '>
+							<p class='text-center'>게시물을 삭제하겠습니까?</p>
+							<div class='row justify-content-center'>
+								<button type='submit' class='btn btn-primary submitBtn mr-2'>확인</button>
+								<button type='button' class='btn btn-secondary'
+									data-dismiss='modal'>취소</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
 		</form>
 		<%@ include file='../include/footer.jsp'%>
 	</div>
