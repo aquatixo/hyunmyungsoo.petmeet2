@@ -23,6 +23,12 @@ $(()=>{
       }
    });
 });
+
+$(()=>{
+	$('.sitters').click(()=>{
+		$('#sitterNumForm').submit();
+	})
+})
 </script>
 <%
 	Object sitterList = request.getAttribute("sitterList");
@@ -77,32 +83,38 @@ $(()=>{
       	<c:choose>
       		<c:when test='${sitterList.size() >0 }'>
       			<c:forEach var='sitter' items='${sitterList }'>
-      				<a href='../reservation/01.html' id='list'>
-      					<div id='sitter' class='mt-3 row'>
-         				<div id='sitterImg' class='col-4 form-group'>
-            				<div class='text-center mt-2 mr-0 ml-3 myImg'>${sitter.sitterFileName }</div>
-         				</div>
-         				
-         				
-         				<div id='sitterInfo' class='col-8 form-group'>
-            				<div class='row line mt-3 pb-0 mb-0'>
-            				<c:forEach var='user' items='${userList }'>
-         					<c:if test='${sitter.userId == user.userId }'>
-               					<p class='col-3 mr-0 pr-0 sitterFont'><b>${user.userNickname }</b></p>
-               				</c:if>
-               				</c:forEach>
-               					<p class='col-5 m-0 p-0'>${sitter.sitterLocSi }시 ${sitter.sitterLocGu }구 ${sitter.sitterLocDong }동</p>   
-            				</div><br>
-            				<div class='row line pt-0 mt-0'>
-               					<h4 class='col-9 sitterFont'>${sitter.sitterTitle }</h4>
-               					<p class='col-3 font'>
-               					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                 				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-               					</svg><small>&nbsp;${sitter.sitterRating }</small></p>
-            				</div>
-         				</div>
-      					</div>
-      				</a>
+      				<div id='sitter' class='mt-3 row'>
+	         			<div id='sitterImg' class='col-4 form-group'>
+	            			<div class='text-center mt-2 mr-0 ml-3 myImg'>${sitter.sitterFileName }</div>
+	         			</div>
+	         				
+	         			<div id='sitterInfo' class='col-8 form-group'>
+	            			<div class='row line mt-3 pb-0 mb-0'>
+	            				<c:forEach var='user' items='${userList }'>
+	         					<c:if test='${sitter.userId == user.userId }'>
+	               					<p class='col-3 mr-0 pr-0 sitterFont'><b>${user.userNickname }</b></p>
+	               				</c:if>
+	               				</c:forEach>
+	               				<p class='col-5 mr-0 ml-0 mb-0 mt-2 p-0'>${sitter.sitterLocSi }시 ${sitter.sitterLocGu }구 ${sitter.sitterLocDong }동</p>   
+	            			</div><br>
+	            				
+	            			<div class='row line pt-0 mt-0'>
+	               				<h4 class='col-9 sitterFont'>${sitter.sitterTitle }</h4>
+	               				<p class='col-3 font'>
+	               					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	                 				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+	               					</svg><small>&nbsp;${sitter.sitterRating }</small>
+	               				</p>
+	            			</div>
+	         			</div>
+      				</div>
+      				
+					<form method='post' id='sitterNumForm'>
+	      				<div class='form-group row' hidden>			
+							<input name='sitterNum' type='number' class='form-control' id='sitterNum'
+									value='${sitter.sitterNum}'/>
+						</div>
+					</form>
       			</c:forEach>
       		</c:when>
       	</c:choose>
