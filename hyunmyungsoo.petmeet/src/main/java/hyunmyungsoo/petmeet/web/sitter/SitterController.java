@@ -50,8 +50,9 @@ public class SitterController {
 		
 		String sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
-		save(dir + "/" + sitterFileName, attachFile);
+			save(dir + "/" + sitterFileName, attachFile);
 		}
+		
 		sitterService.assignSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";
 	}
@@ -59,7 +60,7 @@ public class SitterController {
 	private void save(String sitterFileName, MultipartFile attachFile) {
 		try {
 			attachFile.transferTo(new File(sitterFileName));
-		}catch(IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -82,7 +83,7 @@ public class SitterController {
 		sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
 			save(dir + "/" + sitterFileName, attachFile);
-			}
+		}
 		
 		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";

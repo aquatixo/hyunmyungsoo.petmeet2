@@ -117,8 +117,6 @@ $(() => {
 					<button type='button' class='btn btn-outline-primary mr-2 font' data-toggle='modal' data-dismiss='modal' data-target='#sitterMod'>등록</button>
 					<a href='../common/mypage' class='btn btn-outline-danger font'>취소</a>
 				</div>
-			
-		
 		
 				<div class='modal fade' id='sitterMod' tabindex='-1'>
 					<div class='modal-dialog'>

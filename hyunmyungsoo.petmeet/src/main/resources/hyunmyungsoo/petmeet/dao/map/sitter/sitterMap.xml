@@ -34,7 +34,7 @@
 		insert into sitters 
 		values (sitters_sitternum_seq.nextval, #{userId}, 
 		#{sitterStart}, #{sitterFinish}, #{sitterPetType}, #{sitterPetSize, jdbcType=VARCHAR},
-		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 4,
+		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 4, <!-- 평점 부분 고치기 -->
 		#{sitterTitle}, #{sitterContent}, #{sitterFileName})
 	</insert>
 	
