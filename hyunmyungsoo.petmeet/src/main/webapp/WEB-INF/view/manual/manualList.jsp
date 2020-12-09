@@ -42,6 +42,7 @@
 			<div class='col-12'><a href="#">Message</a></div>
 			<img src='../img/message.png' class='img-fluid' onerror='imgError3(this);'>
 		</div>
+		
 		<%@ include file='../include/footer.jsp'%>
 	</div>
 </body>
