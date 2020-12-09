@@ -12,8 +12,10 @@ public interface BoardService {
 	void addBoardHelper(String boardTitle, String boardContent,
 			String fileName, String userId);
 	
-	void updateBoardHelper(String boardTitle, String boardContent,
+	void updateBoardHelper(int boardNum, String boardTitle, String boardContent,
 			String fileName, String userId);
+	
+	void deleteBoardHelper(int boardNum);
 	
 	Board getBoard(int boardNum);
 	

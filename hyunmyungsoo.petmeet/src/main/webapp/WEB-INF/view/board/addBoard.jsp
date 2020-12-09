@@ -39,10 +39,7 @@ $(() => {
 		<input type='text' class='form-control col-12 mt-3 font color' id='boardTitle' name='boardTitle'
 					placeholder='제목을 입력하세요.'/>
 		
-		<textarea class='form-control mt-2 col-12 font color' id='boardContent' name='boardContent'
-					placeholder='내용을 입력하세요.'></textarea>		
-					
-		<div class='form-row'>
+		<div class='form-row mt-2'>
 			<div class='form-group col-4'>
 				<div class='custom-file'>
 					<input name='attachFile' type='file' class='custom-file-input' id='attachFile'/>
@@ -51,6 +48,10 @@ $(() => {
 			</div>
 		</div>
 		<img id='previewImg'/>
+		
+		<textarea class='form-control mt-2 col-12 font color' style='height : 300px;' id='boardContent' name='boardContent'
+					placeholder='내용을 입력하세요.'></textarea>		
+					
 		<div class='d-flex justify-content-end mt-4'>
 			<button type='button' class='btn btn-outline-primary mr-2 font' data-toggle='modal' data-target='#addBoard' id='addBtn'>
 				등록
@@ -82,6 +83,6 @@ $(() => {
 	</form>
 	
 	<%@ include file= '../include/footer.jsp' %>	
-</div>
+	</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package hyunmyungsoo.petmeet.domain;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import org.apache.ibatis.type.Alias;
 
@@ -14,7 +15,7 @@ public class Board {
 	private int boardNum; 
 	private String boardTitle;
 	private String boardContent; 
-	private Date regDate; 
+	private LocalDate regDate; 
 	private String boardFile; 
 	private String userId;
 }

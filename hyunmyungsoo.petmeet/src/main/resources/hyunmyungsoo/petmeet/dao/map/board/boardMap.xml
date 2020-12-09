@@ -26,7 +26,7 @@
    
 	<update id='updateBoard'> 
    		update boards 
-		set board_title=#{boardTitle}, board_content=#{boardContent}, board_reg_date = #{regDate} , board_file_name = #{boardFile}
+		set board_num = #{boardNum}, board_title=#{boardTitle}, board_content=#{boardContent}, board_file_name = #{boardFile}
 		where board_num = #{boardNum}
     </update> 
    
