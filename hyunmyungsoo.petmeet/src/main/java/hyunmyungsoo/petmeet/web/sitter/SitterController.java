@@ -88,4 +88,3 @@ public class SitterController {
 		return "redirect:../common/mypage";
 	}
 }
-

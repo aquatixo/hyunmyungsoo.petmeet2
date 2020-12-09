@@ -40,6 +40,7 @@ public class SitterServiceImpl implements SitterService {
 			String sitterLocGu, String sitterLocDong, String daterange,
 			String sitterFileName) throws ParseException {
 		Sitter sitter = new Sitter();
+		String userId = session.getAttribute("userEmail").toString();
 
 		int idx = daterange.indexOf("-");
 		String sitterStartDate = daterange.substring(0, idx-1);
@@ -57,8 +58,6 @@ public class SitterServiceImpl implements SitterService {
 		after = afterFormat.format(before);
 		
 		LocalDate sitterFinish = LocalDate.parse(after, DateTimeFormatter.ISO_DATE);
-		
-		String userId = session.getAttribute("userEmail").toString();
 		
 		sitter.setUserId(userId);
 		sitter.setSitterTitle(sitterTitle);

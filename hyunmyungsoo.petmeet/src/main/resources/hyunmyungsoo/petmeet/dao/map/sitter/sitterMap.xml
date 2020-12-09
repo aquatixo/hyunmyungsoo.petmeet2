@@ -34,7 +34,7 @@
 		insert into sitters 
 		values (sitters_sitternum_seq.nextval, #{userId}, 
 		#{sitterStart}, #{sitterFinish}, #{sitterPetType}, #{sitterPetSize, jdbcType=VARCHAR},
-		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 4, <!-- 펫시터 등록할 때 평점을 입력해야한다? 좀 이상함 -->
+		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 4,
 		#{sitterTitle}, #{sitterContent}, #{sitterFileName})
 	</insert>
 	
