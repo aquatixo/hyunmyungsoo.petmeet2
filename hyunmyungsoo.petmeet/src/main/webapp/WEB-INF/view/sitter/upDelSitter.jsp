@@ -70,12 +70,14 @@ $(function() {
 			<div class='form-group row sitterOption mt-2 mb-0'>
 				<select id='animalType' name='sitterPetType'
 					class='form-control col-4 ml-3 font color'>
+					<option value='${sitter.sitterPetType }' selected disabled hidden>${sitter.sitterPetType }</option>
 					<option>강아지</option>
 					<option>고양이</option>
 				</select> <select id='dogType' name='sitterPetSize'
 					class='form-control col-4 ml-1 font color'>
+					<option value='${sitter.sitterPetSize }' selected disabled hidden>${sitter.sitterPetSize }</option>
 					<option>대형견</option>
-					<option selected>중형견</option>
+					<option>중형견</option>
 					<option>소형견</option>
 				</select>
 			</div>
