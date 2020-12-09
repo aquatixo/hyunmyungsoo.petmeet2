@@ -14,7 +14,7 @@
 .logoImg {
    margin: 30px;
    width: 300px;
-   height: 100px;
+   height: 153px;
    background: #c8ddff;
    text-align: center;
 }
@@ -64,11 +64,14 @@
 }
 
 .carouImg { /*main.로고 이미지*/
-   width: 100%;
-   height: 600px;
+   max-width: auto;
+   height: 400px;
    border: 1px solid;
    background: #c8ddff;
    text-align: center;
+   vertical-align: middle;
+	font-family: 'Jua', sans-serif;
+   
 }
 
 .card-footer {
@@ -170,22 +173,21 @@
 .box {
    margin-top: 20px;
    width: 100%;
-   height: 1300px;
    position: relative;
-   color: #ffffff;
-   font-size: 24pt;
+   color: #4382ff;
+   font-size: 40pt;
    text-align: center;
    vertical-align: center;
-   border: 1px solid black;
-   color: black;
    font-family: 'Jua', sans-serif;
 }
 
 .box>.img {
    background: #94B8FF;
    text-align: center;
+   color:white;
    vertical-align: middle;
-   height: 1000px;
+   height: 300px;
+   margin: auto;
 }
 
 /*massege*/
@@ -218,6 +220,16 @@
    border: 1px solid #94B8FF;
    font-family: 'Jua', sans-serif;
 }
+
+.chooseBtn {
+	background:bule;
+	color: white;
+	font-size: 30px;
+	font-family: 'Jua', sans-serif;
+	padding-bottom: 100px;
+}
+
+
 
 .msgOwner { /*msg 사용자 이름*/
    display: inline-block;
