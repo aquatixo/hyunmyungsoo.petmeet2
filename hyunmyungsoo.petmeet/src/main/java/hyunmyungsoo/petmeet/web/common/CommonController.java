@@ -12,6 +12,7 @@ import hyunmyungsoo.petmeet.service.sitter.SitterService;
 @Controller
 public class CommonController {
 	@Autowired private SitterService sitterService;
+	
 	@GetMapping("/common/mypage")
 	public String toMyPage(Model model, HttpSession session) {
 		String userId = session.getAttribute("userEmail").toString();

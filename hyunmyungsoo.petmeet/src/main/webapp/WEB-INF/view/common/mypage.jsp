@@ -30,6 +30,7 @@
 			<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>후기</a>
 		</div>
 	</c:if>
+	
 	<c:if test='${sitter != null }'>
 		<div class='row mt-4'>
 			<a href='../user/userInformation' class='offset-2 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center text-nowrap'>내 정보</a>
@@ -42,6 +43,7 @@
 			<a href='#' class='ml-1 col-2 btn btn-outline-primary mypageBtnSize d-flex justify-content-center align-items-center'>후기</a>
 		</div>
 	</c:if>
+	
 	<hr class='color'>
 	<div class='row offset-10'>
 		<a href='../main' class='btn btn-outline-primary mt-4 font'>메인으로</a>
