@@ -13,8 +13,9 @@ public interface SitterService {
 	boolean addSitter(Sitter sitter);
 	void assignSitter(HttpSession session, String sitterTitle, String sitterContent, String sitterPetType,
 			String sitterPetSize, String sitterLocSi, String sitterLocGu, String sitterLocDong, String daterange,
-			String fileName) throws ParseException;
+			String sitterFileName) throws ParseException;
 	boolean fixSitter(HttpSession session, String sitterTitle, String sitterContent, 
 			String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, 
-			String sitterLocDong, String daterange, String fileName) throws ParseException;
+			String sitterLocDong, String daterange, String sitterFileName) throws ParseException;
+	boolean delSitter(String userId);
 }

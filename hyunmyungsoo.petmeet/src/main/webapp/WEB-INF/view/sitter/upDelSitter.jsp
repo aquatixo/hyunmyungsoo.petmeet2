@@ -70,12 +70,14 @@ $(function() {
 			<div class='form-group row sitterOption mt-2 mb-0'>
 				<select id='animalType' name='sitterPetType'
 					class='form-control col-4 ml-3 font color'>
+					<option value='${sitter.sitterPetType }' selected disabled hidden>${sitter.sitterPetType }</option>
 					<option>강아지</option>
 					<option>고양이</option>
 				</select> <select id='dogType' name='sitterPetSize'
 					class='form-control col-4 ml-1 font color'>
+					<option value='${sitter.sitterPetSize }' selected disabled hidden>${sitter.sitterPetSize }</option>
 					<option>대형견</option>
-					<option selected>중형견</option>
+					<option>중형견</option>
 					<option>소형견</option>
 				</select>
 			</div>
@@ -122,20 +124,25 @@ $(function() {
 			</div>
 		</form>
 
-		<div class='modal fade' id='sitterDelMod' tabindex='-1'>
-			<div class='modal-dialog'>
-				<div class='modal-content'>
-					<div class='modal-body '>
-						<p class='text-center'>게시물을 삭제하겠습니까?</p>
-						<div class='text-center'>
-							<a href='../common/mypage.html' class='btn btn-primary'>확인</a> <a
-								href='#' class='btn btn-secondary' data-dismiss='modal'>취소</a>
+		<form action='upDelSitter/del' method='post'>
+			<div class='form-group row' hidden>
+				<input name='userId' type='text' class='form-control' id='userId'
+					value='<%=userId%>' />
+			</div>
+			<div class='modal fade' id='sitterDelMod' tabindex='-1'>
+				<div class='modal-dialog'>
+					<div class='modal-content'>
+						<div class='modal-body '>
+							<p class='text-center'>게시물을 삭제하겠습니까?</p>
+							<div class='row justify-content-center'>
+                  				<button type='submit' class='btn btn-primary submitBtn mr-2' >확인</button>
+                  				<button type='button' class='btn btn-secondary' data-dismiss='modal'>취소</button>
+              				</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
+		</form>
 		<%@ include file='../include/footer.jsp'%>
 	</div>
 </body>

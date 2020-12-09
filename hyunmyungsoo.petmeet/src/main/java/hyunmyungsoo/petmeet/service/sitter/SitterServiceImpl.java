@@ -38,7 +38,7 @@ public class SitterServiceImpl implements SitterService {
 			String sitterContent, 
 			String sitterPetType, String sitterPetSize, String sitterLocSi, 
 			String sitterLocGu, String sitterLocDong, String daterange,
-			String fileName) throws ParseException {
+			String sitterFileName) throws ParseException {
 		Sitter sitter = new Sitter();
 
 		int idx = daterange.indexOf("-");
@@ -70,7 +70,7 @@ public class SitterServiceImpl implements SitterService {
 		sitter.setSitterLocDong(sitterLocDong);
 		sitter.setSitterStart(sitterStart);
 		sitter.setSitterFinish(sitterFinish);
-		sitter.setSitterFileName(fileName);
+		sitter.setSitterFileName(sitterFileName);
 		
 		addSitter(sitter);
 	}
@@ -78,7 +78,7 @@ public class SitterServiceImpl implements SitterService {
 	@Override
 	public boolean fixSitter(HttpSession session, String sitterTitle, String sitterContent, 
 			String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, 
-			String sitterLocDong, String daterange, String fileName) throws ParseException {
+			String sitterLocDong, String daterange, String sitterFileName) throws ParseException {
 		
 		Sitter sitter = new Sitter();
 		int idx = daterange.indexOf("-");
@@ -110,8 +110,13 @@ public class SitterServiceImpl implements SitterService {
 		sitter.setSitterLocDong(sitterLocDong);
 		sitter.setSitterStart(sitterStart);
 		sitter.setSitterFinish(sitterFinish);
-		sitter.setSitterFileName(fileName);
+		sitter.setSitterFileName(sitterFileName);
 		
 		return sitterDao.updateSitter(sitter);
+	}
+	
+	@Override
+	public boolean delSitter(String userId) {
+		return sitterDao.deleteSitter(userId);
 	}
 }

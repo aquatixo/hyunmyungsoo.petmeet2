@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,24 +41,24 @@ public class SitterController {
 	@PostMapping("/sitter/insertSitter")
 	public String insertSitterPage(@RequestParam("sitterTitle") String sitterTitle,
 			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType,
-			@RequestParam("sitterPetSize") String sitterPetSize, @RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu,
+			@RequestParam(value = "sitterPetSize", required=false) String sitterPetSize, @RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu,
 			@RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange, 
 			HttpSession session, HttpServletRequest request,
 			@RequestParam MultipartFile attachFile,
 			@RequestParam("userId") String userId) throws ParseException {
 		String dir = request.getServletContext().getRealPath(attachDir);
 		
-		String fileName = "sitter" + userId + ".PNG";
+		String sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
-		save(dir + "/" + fileName, attachFile);
+		save(dir + "/" + sitterFileName, attachFile);
 		}
-		sitterService.assignSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, fileName);
+		sitterService.assignSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";
 	}
 	
-	private void save(String fileName, MultipartFile attachFile) {
+	private void save(String sitterFileName, MultipartFile attachFile) {
 		try {
-			attachFile.transferTo(new File(fileName));
+			attachFile.transferTo(new File(sitterFileName));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -73,20 +72,26 @@ public class SitterController {
 	}
 	
 	@PostMapping("/sitter/upDelSitter")
-	public String fixUser(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
-			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType, @RequestParam("sitterPetSize") String sitterPetSize,
+	public String fixSitter(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
+			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize,
 			@RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu, @RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange,
 			HttpSession session,HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam MultipartFile attachFile ) throws ParseException {
 		
 			String dir = request.getServletContext().getRealPath(attachDir);
 		
-		String fileName = "sitter" + userId + ".PNG";
+		sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
-			save(dir + "/" + fileName, attachFile);
+			save(dir + "/" + sitterFileName, attachFile);
 			}
 		
-		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, fileName);
+		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";
+	}
+	
+	@PostMapping("/sitter/upDelSitter/del")
+	public String delSitter(@RequestParam("userId") String userId) {
+		sitterService.delSitter(userId);
+		return "redirect:../../common/mypage";
 	}
 }
 
