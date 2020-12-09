@@ -1,16 +1,14 @@
 <%@ page language='java' contentType='text/html; charset=UTF-8' pageEncoding='utf-8' isELIgnored='false'%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- include : lib -->
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
-<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
-<link rel='stylesheet' href='../res/css/lib.css'>
-<!-- /include : lib -->
+<%@ include file= '../include/library.jsp' %>
 <title>Pet & Meet</title>
 </head>
+<%
+	Object userId = session.getAttribute("userEmail");
+%>
 <script>
 	//수정
 	$(function(){ 
@@ -75,10 +73,13 @@
       </tr>
       <tr>
          <td colspan='4'>
-            <div class='previewImg2'>사료 이미지 ${board.boardFile}</div>
+            <img width="250" height="200" class="previewImg2" id='${board.boardFile}'>
+			<br>
+			<br>
             <div style=' float: left;'><br>
 			${board.boardContent} 
              </div>
+             <br>
          </td>
       </tr>
       
@@ -165,36 +166,47 @@
                </div>
             </div>
          </div>
-      </div>         
-      <div id='del' class='modal fade' tabindex='-1'>
-         <div class='modal-dialog'>
-            <div class='modal-content'>
-               <div class='modal-body'>
-                  <div class='row justify-content-center'>
-                     <p>게시글을 삭제하겠습니까?</p>
-                  </div>
-                  <div class='row justify-content-center'>
-                     <button type='button' class='btn btn-primary' data-dismiss='modal' id='del2'>확인</button>
-                     <button type='submit' class='btn btn-secondary ml-2' data-dismiss='modal' id='can'>취소</button>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>         
-      -->
-      
+      </div>   -->
+             
       
       <!-- 버튼 모음 -->
       <hr class='color'>      
       <div class='d-flex mt-4'>
-         <input type='button' class='btn btn-outline-primary mr-1 font' value='목록' value='list' id='list' onclick="location.href='/hyunmyungsoo.petmeet/board/listBoard'">
+          <input type='button' class='btn btn-outline-primary mr-1 font' value='목록' value='list' id='list' onclick="location.href='/hyunmyungsoo.petmeet/board/listBoard'">
           <div class='flex-fill'></div> 
           <input type='button' class='btn btn-outline-info mr-1 font upBoard' value='수정' value='update' id="a${board.boardNum}" onclick="location.href='/hyunmyungsoo.petmeet/board/updateBoard'">
-          <!-- a를 넣어야지 int로 먹히는 신기한 세상,, ㅎㅎ -->
-         <input type='button' class='btn btn-outline-danger mr-2 font' value='삭제' value='del' data-toggle='modal' id="a${board.boardNum}" data-target='#del'>
+          <!-- a를 넣어야지 int로,, 이유는 모름,,ㅎㅎ-->
+
+	      <form action='view/del' method='post'>
+	        <div class='form-group row' hidden>
+	           <input name='boardNum' type='text' class='form-control' id='${board.boardNum}'
+	                  value='${board.boardNum}' />
+	        </div>
+         
+	        <button type='button' class='btn btn-outline-danger mr-2 font'
+	               	data-toggle='modal' data-dismiss='modal'
+            		data-target='#delBoardBtn'>삭제</button>
+
+	         <div class='modal fade' id='delBoardBtn' tabindex='-1'>
+	            <div class='modal-dialog'>
+	               <div class='modal-content'>
+	                  <div class='modal-body '>
+						<div class='row justify-content-center'>
+							<p>게시글을 삭제하겠습니까?</p>
+						</div>
+                 		<div class='row justify-content-center'>
+                            <button type='submit' class='btn btn-primary submitBtn mr-2' >확인</button>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>취소</button>
+                        </div>
+	                  </div>
+	               </div>
+	            </div>
+	         </div>
+	       </form>
+
+     
       </div>   
 	<%@ include file= '../include/footer.jsp' %>
         </div>    
-</div>
 </body>
 </html> 

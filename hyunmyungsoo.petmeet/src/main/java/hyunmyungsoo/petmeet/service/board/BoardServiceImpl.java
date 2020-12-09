@@ -59,6 +59,10 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public void deleteBoardHelper(int boardNum) {
+		delBoard(boardNum);
+	}
 	
 	
 	/*

@@ -70,6 +70,18 @@ public class BoardController {
 		 return "board/viewBoard";
 	}
 	
+	//삭제
+	@PostMapping("/board/view/del")
+	public String delBoard(HttpSession session,HttpServletRequest request,
+			@RequestParam("boardNum") int boardNum) {
+		
+		System.out.println(boardNum);
+		System.out.println("삭제");
+
+		boardService.deleteBoardHelper(boardNum);
+		return "redirect:../listBoard";
+	}
+	
 	//update 
 	@RequestMapping("/board/upBoard")
 	public String BoardUpdate(@RequestParam("boardNum") int boardNum , Model model) throws Exception{
