@@ -9,16 +9,13 @@ import hyunmyungsoo.petmeet.domain.Sitter;
 
 public interface SitterService {
 	List<Sitter> getSitters();
-	
 	Sitter getSitter(String userId);
-	
 	boolean addSitter(Sitter sitter);
-	
 	void assignSitter(HttpSession session, String sitterTitle, String sitterContent, String sitterPetType,
 			String sitterPetSize, String sitterLocSi, String sitterLocGu, String sitterLocDong, String daterange,
 			String sitterFileName) throws ParseException;
-	
 	boolean fixSitter(HttpSession session, String sitterTitle, String sitterContent, 
 			String sitterPetType, String sitterPetSize, String sitterLocSi, String sitterLocGu, 
 			String sitterLocDong, String daterange, String sitterFileName) throws ParseException;
+	boolean delSitter(String userId);
 }

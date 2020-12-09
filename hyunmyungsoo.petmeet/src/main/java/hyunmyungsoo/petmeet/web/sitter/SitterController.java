@@ -50,9 +50,8 @@ public class SitterController {
 		
 		String sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
-			save(dir + "/" + sitterFileName, attachFile);
+		save(dir + "/" + sitterFileName, attachFile);
 		}
-		
 		sitterService.assignSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";
 	}
@@ -60,7 +59,7 @@ public class SitterController {
 	private void save(String sitterFileName, MultipartFile attachFile) {
 		try {
 			attachFile.transferTo(new File(sitterFileName));
-		} catch(IOException e) {
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +72,7 @@ public class SitterController {
 	}
 	
 	@PostMapping("/sitter/upDelSitter")
-	public String fixUser(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
+	public String fixSitter(String sitterFileName, @RequestParam("sitterTitle") String sitterTitle,
 			@RequestParam("sitterContent") String sitterContent, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize,
 			@RequestParam("sitterLocSi") String sitterLocSi, @RequestParam("sitterLocGu") String sitterLocGu, @RequestParam("sitterLocDong") String sitterLocDong, @RequestParam("daterange") String daterange,
 			HttpSession session,HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam MultipartFile attachFile ) throws ParseException {
@@ -83,9 +82,16 @@ public class SitterController {
 		sitterFileName = "sitter" + userId + ".PNG";
 		if(!attachFile.isEmpty()) {
 			save(dir + "/" + sitterFileName, attachFile);
-		}
+			}
 		
 		sitterService.fixSitter(session, sitterTitle, sitterContent, sitterPetType, sitterPetSize, sitterLocSi, sitterLocGu, sitterLocDong, daterange, sitterFileName);
 		return "redirect:../common/mypage";
 	}
+	
+	@PostMapping("/sitter/upDelSitter/del")
+	public String delSitter(@RequestParam("userId") String userId) {
+		sitterService.delSitter(userId);
+		return "redirect:../../common/mypage";
+	}
 }
+

@@ -40,11 +40,10 @@ public class SitterServiceImpl implements SitterService {
 			String sitterLocGu, String sitterLocDong, String daterange,
 			String sitterFileName) throws ParseException {
 		Sitter sitter = new Sitter();
-		String userId = session.getAttribute("userEmail").toString();
 
 		int idx = daterange.indexOf("-");
-		String sitterStartDate = daterange.substring(0, idx - 1);
-		String sitterFinishDate = daterange.substring(idx + 2);
+		String sitterStartDate = daterange.substring(0, idx-1);
+		String sitterFinishDate = daterange.substring(idx+2);
 		
 		SimpleDateFormat beforeFormat = new SimpleDateFormat("mm/dd/yyyy");
 		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -58,6 +57,8 @@ public class SitterServiceImpl implements SitterService {
 		after = afterFormat.format(before);
 		
 		LocalDate sitterFinish = LocalDate.parse(after, DateTimeFormatter.ISO_DATE);
+		
+		String userId = session.getAttribute("userEmail").toString();
 		
 		sitter.setUserId(userId);
 		sitter.setSitterTitle(sitterTitle);
@@ -81,8 +82,8 @@ public class SitterServiceImpl implements SitterService {
 		
 		Sitter sitter = new Sitter();
 		int idx = daterange.indexOf("-");
-		String sitterStartDate = daterange.substring(0, idx - 1);
-		String sitterFinishDate = daterange.substring(idx + 2);
+		String sitterStartDate = daterange.substring(0, idx-1);
+		String sitterFinishDate = daterange.substring(idx+2);
 		
 		SimpleDateFormat beforeFormat = new SimpleDateFormat("mm/dd/yyyy");
 		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -112,5 +113,10 @@ public class SitterServiceImpl implements SitterService {
 		sitter.setSitterFileName(sitterFileName);
 		
 		return sitterDao.updateSitter(sitter);
+	}
+	
+	@Override
+	public boolean delSitter(String userId) {
+		return sitterDao.deleteSitter(userId);
 	}
 }
