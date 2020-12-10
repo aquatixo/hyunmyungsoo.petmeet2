@@ -63,12 +63,17 @@ public class BoardController {
 	}
 	
 	//view 가져오기
-	@RequestMapping("/board/view")
+	@GetMapping("/board/view")
 	public String boardView(@RequestParam("boardNum") int boardNum , Model model) throws Exception{
 		model.addAttribute("board", boardService.getBoard(boardNum));
-		System.out.println(boardService.getBoard(5004));
+		model.addAttribute("commentList", commentService.getComments(boardNum));
+		
+		System.out.println("view 실험");
+		System.out.println(boardService.getBoard(boardNum));
+		System.out.println("가져오기");
 		 return "board/viewBoard";
 	}
+	
 	
 	//삭제
 	@PostMapping("/board/view/del")

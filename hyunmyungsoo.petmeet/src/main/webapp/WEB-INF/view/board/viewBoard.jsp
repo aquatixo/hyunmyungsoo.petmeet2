@@ -88,7 +88,7 @@
    <hr class='color'>
    <form>
       <div class='row ml-3 font'>
-         <p>강철검</p>
+         <p>${board.userId}</p>
       </div>
       <div class='row ml-3 mb-3'>
          <textarea class='form-control col-11' id='comment' name='comment' placeholder='댓글을 작성해주세요'></textarea>
@@ -97,42 +97,30 @@
        <input type='button' class='btn btn-outline-primary font' value='등록' data-toggle='modal' data-target='#addComment'>
       </div>
    </form>
-   <hr class='color'> 
+   
+   
+     <hr class='color'> 
    <form class='font'>
-      <div class='row ml-3'>
-         <span class='commentName'>차차차 </span>
-      </div>
-      <div class='row ml-3'>
-      <span class='commentDate'>2020-11-20</span>
-      </div>
-      <div class='row ml-3 mb-3'>
-         <input value='헐 바로 사러 가야겠네요,,,,' readonly='readonly' id='textbox' class='form-control col-11'/>
-      </div>
-      
-   <div class='d-flex justify-content-end mt-1'>
-      <input type='button' class='btn btn-info mr-1' value='수정' id='upComm1'>
-      <input type='button' class='btn btn-danger mr-1' value='삭제' id='delComm1' data-toggle='modal' data-target='#delComment'>
-      <input type='button' class='btn btn-primary mr-1' value='등록' style='display: none;'  id='reupComm1'>
-      <input type='button' class='btn btn-secondary mr-1' value='취소' style='display: none ' id='recelComm1'>
-   </div>
-   </form>
-   <form class='font'>
-      <div class='row ml-3'>
-         <span class='commentName'>멍멍주 </span>
-      </div>
-      <div class='row ml-3'>
-      <span class='commentDate'>2020-11-20</span>
-      </div>
-      <div class='row ml-3 mb-3'>
-      <input value='이거 좋아요~!~!~!' readonly='readonly' id='textbox1' class='form-control col-11'/>
-      </div>
-      
-   <div class='d-flex justify-content-end mt-1'>
-      <input type='button' class='btn btn-info mr-1' value='수정' id='upComm2'>
-      <input type='button' class='btn btn-danger mr-1' value='삭제' id='delComm2' data-toggle='modal' data-target='#delComment'>
-      <input type='button' class='btn btn-primary mr-1' value='등록' style='display: none;'  id='reupComm2'>
-      <input type='button' class='btn btn-secondary mr-1' value='취소' style='display: none ' id='recelComm2'>
-   </div>
+   
+	   	<c:forEach var="list" items="${commentList}">
+		      <div class='row ml-3'>
+		        <span class='commentName'>${list.userId}</span>
+		      </div>
+		      <div class='row ml-3'>
+		      	<span class='commentDate'>${list.regDate}</span>
+		      </div>
+		      <div class='row ml-3 mb-3'>
+		         <input value='${list.commentContent}' readonly='readonly' id='textbox' class='form-control col-11'/>
+		      </div>
+		      
+		       <div class='d-flex justify-content-end mt-1'>
+			      <input type='button' class='btn btn-info mr-1' value='수정' id='upComm1'>
+			      <input type='button' class='btn btn-danger mr-1' value='삭제' id='delComm1' data-toggle='modal' data-target='#delComment'>
+			      <input type='button' class='btn btn-primary mr-1' value='등록' style='display: none;'  id='reupComm1'>
+			      <input type='button' class='btn btn-secondary mr-1' value='취소' style='display: none ' id='recelComm1'>
+			   </div>
+	      </c:forEach>
+	   
    </form>
    
    
