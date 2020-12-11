@@ -11,13 +11,13 @@
 %>
 <script>
 function showImg(input) {
-	   if(input.files[0]) { // 파일이 있는지 확인
+	   if(input.files[0]) { 
 	      let reader = new FileReader();
-	                     // load이벤트가 발생하면 실행되는 리스너 callback
+	                    
 	      reader.addEventListener('load', () => {
-	         $('#previewImg').attr('src', reader.result); // img미리보기가 나타남
-	      }, false) // 자바스크립트가 제공하는 리스너
-	      reader.readAsDataURL(input.files[0]); // 선택한 파일을 읽어들인다.
+	         $('#previewImg').attr('src', reader.result); 
+	      }, false) 
+	      reader.readAsDataURL(input.files[0]);
 	   }
 	}	
 $(() => {
