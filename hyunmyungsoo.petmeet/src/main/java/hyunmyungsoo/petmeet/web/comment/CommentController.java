@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,7 @@ public class CommentController {
 	//댓글 삭제 
 	@GetMapping("/board/viewBoard/del")
 	public String test(@RequestParam("commentNum") int commentNum,
-					   @RequestParam("boardNum") int boardNum) {
+					   @RequestParam("boardNum") int boardNum,Model model) {
 		
 		System.out.println(commentNum);
 		System.out.println(boardNum);

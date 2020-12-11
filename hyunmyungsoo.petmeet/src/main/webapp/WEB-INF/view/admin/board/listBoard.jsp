@@ -11,17 +11,19 @@
 <title>Pet & Meet</title>
 </head>
 <script>
-
 </script>
 <body>
 	<div class='container'>
   		<%@ include file= '../include/header.jsp' %>
 		<%@ include file= '../include/nav.jsp' %>
+        
+        
 		<div>
 			<h3 class='titleFont'>자유게시판</h3>
 		</div>
 		
 		<form>
+		
 			<table class='table table-hover'>
 				<thead class='thead text'>
 					<tr class='font'>
@@ -33,8 +35,9 @@
 				</thead>
 				<tbody class='text'>
 					<c:forEach var="list" items="${boardList}">
+						<!--  <tr id="a${list.boardNum}" class="getBoard">-->
 						<tr id="a${list.boardNum}" class="getBoard"
-						onclick="location.href='/hyunmyungsoo.petmeet/board/view?boardNum=${list.boardNum}'">
+						onclick="location.href='/hyunmyungsoo.petmeet/admin/board/view?boardNum=${list.boardNum}'">
 							<th><a>${list.boardNum}</a></th>
 							<td>${list.boardTitle}</td>
 							<td>
@@ -49,32 +52,14 @@
 					</c:forEach>
 				</tbody>
 			</table>
-		
+			
 			<div class='form-group row' hidden>
 	           <input name='boardNum' type='text' class='form-control' id='${list.boardNum}'
 	                  value='${list.boardNum}' />
 	        </div>
+			
 		</form>
 
-			
-			<div class='d-flex justify-content-center'>	
-				<ul class='pagination'>
-					<li class='page-item'><a class='page-link' href='#'><span>«</span></a></li>
-					<li class='page-item'><a class='page-link' href='#'>1</a></li>
-					<li class='page-item'><a class='page-link' href='#'>2</a></li>
-					<li class='page-item'><a class='page-link' href='#'>3</a></li>
-					<li class='page-item'><a class='page-link' href='#'>4</a></li>
-					<li class='page-item'><a class='page-link' href='#'><span>»</span></a></li>
-				</ul>
-			</div>
-			
-		<hr class='color'>
-			<div class='d-flex justify-content-end mt-4'>
-				<button class='btn btn-outline-primary font' type='button' id='write'
-				onclick="location.href='/hyunmyungsoo.petmeet/board/addBoard'">글쓰기</button>
-			</div>		
-			
-	<%@ include file= '../include/footer.jsp' %>
 </div>
 </body>
 </html>

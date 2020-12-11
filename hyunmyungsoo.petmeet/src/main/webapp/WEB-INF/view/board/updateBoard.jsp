@@ -50,7 +50,7 @@ var imgError8 = function(image) {
 		</div>
 		
 		<form id='updateForm' method='post' enctype='multipart/form-data'>
-		<input type='text' class='form-control col-12 mt-3 font color' value='${board.boardTitle}' 
+		<input type='text' class='form-control col-12 mt-3 font color' value='${board.boardTitle}' maxlength='30'
 		id='boardTitle' name='boardTitle' required />
 		
 		<!-- 기존 이미지-->
@@ -70,7 +70,7 @@ var imgError8 = function(image) {
 		<img id='previewImg'/>
 		<!--  <img width="250" height="200" class="previewImg2" id='${board.boardFile}'>-->
 		
-		<textarea class='form-control mt-2 col-12 font color' style='height : 300px;'  id='boardContent' name='boardContent'>${board.boardContent}</textarea>		
+		<textarea class='form-control mt-2 col-12 font color' style='height : 300px;'  id='boardContent' name='boardContent' maxlength='800'>${board.boardContent}</textarea>		
 		
 		
 		<div class='d-flex justify-content-end mt-4'>

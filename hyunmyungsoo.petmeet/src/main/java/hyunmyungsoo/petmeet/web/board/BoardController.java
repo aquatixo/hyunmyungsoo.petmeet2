@@ -18,12 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hyunmyungsoo.petmeet.service.board.BoardService;
 import hyunmyungsoo.petmeet.service.comment.CommentService;
-
+import hyunmyungsoo.petmeet.service.user.UserService;
 
 @Controller
 public class BoardController {
 	@Autowired private BoardService boardService;
 	@Autowired private CommentService commentService;
+	@Autowired private UserService userService;
 	
 	@Value("img")
 	private String attachDir;
@@ -61,15 +62,21 @@ public class BoardController {
 	@GetMapping("/board/listBoard")
 	public String boardLookUp(Model model) {
 		model.addAttribute("boardList", boardService.getBoards());
-//		System.out.println(boardService.getBoards());
+		model.addAttribute("userList", userService.getUsers());
+		
+		System.out.println(userService.getUsers());
 		return "board/listBoard";
 	}
 	
 	//view 가져오기
 	@GetMapping("/board/view")
-	public String boardView(@RequestParam("boardNum") int boardNum , Model model) throws Exception{
+	public String boardView(@RequestParam("boardNum") int boardNum , Model model, HttpSession session) throws Exception{
 		model.addAttribute("board", boardService.getBoard(boardNum));
 		model.addAttribute("commentList", commentService.getComments(boardNum));
+		model.addAttribute("idForDel", session.getAttribute("userEmail"));
+		model.addAttribute("userList", userService.getUsers());
+		
+		System.out.println(session.getAttribute("userEmail"));
 		
 		System.out.println("view 실험");
 		System.out.println(boardService.getBoard(boardNum));
@@ -90,13 +97,13 @@ public class BoardController {
 		return "redirect:../listBoard";
 	}
 	
-	//update 
+	
+	//게시글 update 
 	@RequestMapping("/board/upBoard")
 	public String BoardUpdate(@RequestParam("boardNum") int boardNum , Model model) throws Exception{
 		model.addAttribute("board", boardService.getBoard(boardNum));
 		System.out.println(boardService.getBoard(5004));
 		 return "board/updateBoard";
-		 
 	}
 	
 	@PostMapping("/board/upBoard")
@@ -117,7 +124,6 @@ public class BoardController {
 		boardService.updateBoardHelper(boardNum, boardTitle, boardContent, fileName, userId);
 		return "redirect:../board/listBoard";
 	}
-	
 	
 	
 }

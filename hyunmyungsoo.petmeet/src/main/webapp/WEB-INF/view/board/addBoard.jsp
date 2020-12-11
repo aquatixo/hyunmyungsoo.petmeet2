@@ -49,8 +49,8 @@ $(() => {
 		</div>
 		<img id='previewImg'/>
 		
-		<textarea class='form-control mt-2 col-12 font color' style='height : 300px;' id='boardContent' name='boardContent'
-					placeholder='내용을 입력하세요.'></textarea>		
+		<textarea class='form-control mt-2 col-12 font color' style='height : 300px;' id='boardContent' name='boardContent' maxlength='800'
+					placeholder='내용을 입력하세요.'></textarea>	
 					
 		<div class='d-flex justify-content-end mt-4'>
 			<button type='button' class='btn btn-outline-primary mr-2 font' data-toggle='modal' data-target='#addBoard' id='addBtn'>
@@ -77,8 +77,7 @@ $(() => {
 			</div>
 		</div>
 		<div class='form-group row' hidden>			
-			<input name='userId' type='text' class='form-control' id='userId'
-					value='<%=userId%>'/>
+			<input name='userId' type='text' class='form-control' id='userId' value='<%=userId%>'/>
 		</div>
 	</form>
 	
