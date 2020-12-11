@@ -45,6 +45,7 @@
 	</c:if>
 	
 	<hr class='color'>
+	
 	<div class='row offset-10'>
 		<a href='../main' class='btn btn-outline-primary mt-4 font'>메인으로</a>
 	</div>
