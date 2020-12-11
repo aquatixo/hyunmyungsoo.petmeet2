@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import hyunmyungsoo.petmeet.service.board.BoardService;
+import hyunmyungsoo.petmeet.service.comment.CommentService;
 
 
 @Controller
 public class BoardController {
 	@Autowired private BoardService boardService;
+	@Autowired private CommentService commentService;
+	
 	@Value("img")
 	private String attachDir;
 	
@@ -39,7 +42,7 @@ public class BoardController {
 			@RequestParam("userId") String userId) {
 		
 		String dir = request.getServletContext().getRealPath(attachDir);
-		String fileName = "board" + userId + ".PNG";
+		String fileName = "board" + userId + boardTitle + ".PNG";
 		save(dir + "/" + fileName, attachFile);
 
 		boardService.addBoardHelper(boardTitle, boardContent, fileName, userId);
@@ -75,7 +78,7 @@ public class BoardController {
 	}
 	
 	
-	//삭제
+	//게시글 삭제
 	@PostMapping("/board/view/del")
 	public String delBoard(HttpSession session,HttpServletRequest request,
 			@RequestParam("boardNum") int boardNum) {
@@ -98,26 +101,23 @@ public class BoardController {
 	
 	@PostMapping("/board/upBoard")
 	public String boardAddd(HttpSession session,HttpServletRequest request,
+			@RequestParam("boardNum") int boardNum,
 			@RequestParam MultipartFile attachFile,
 			@RequestParam("boardTitle") String boardTitle,
 			@RequestParam("boardContent") String boardContent,
 			@RequestParam("userId") String userId) {
 		
 		String dir = request.getServletContext().getRealPath(attachDir);
-		String fileName = "board" + userId + ".PNG";
-		save2(dir + "/" + fileName, attachFile);
-
-		boardService.updateBoardHelper(boardTitle, boardContent, fileName, userId);
+		
+		String fileName = "board" + userId + boardTitle + ".PNG";
+		
+		if(!attachFile.isEmpty()) {
+			save(dir + "/" + fileName, attachFile);
+		}
+		boardService.updateBoardHelper(boardNum, boardTitle, boardContent, fileName, userId);
 		return "redirect:../board/listBoard";
 	}
 	
-	private void save2(String fileName, MultipartFile attachFile) {
-		try {
-			attachFile.transferTo(new File(fileName));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 }

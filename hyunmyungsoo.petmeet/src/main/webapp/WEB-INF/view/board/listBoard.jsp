@@ -17,13 +17,6 @@
 </head>
 <script>
 
-$(function(){ 
-	$(".getBoard").click(function() {
-		   var boardNum = $(this).attr('id').substr(1);
-		   location.href = "view?boardNum=" + boardNum;
-	});
-});
-
 </script>
 <body>
 	<div class='container'>
@@ -46,10 +39,12 @@ $(function(){
 				</thead>
 				<tbody class='text'>
 					<c:forEach var="list" items="${boardList}">
-						<tr id="a${list.boardNum}" class="getBoard">
+						<!--  <tr id="a${list.boardNum}" class="getBoard">-->
+						<tr id="a${list.boardNum}" class="getBoard"
+						onclick="location.href='/hyunmyungsoo.petmeet/board/view?boardNum=${list.boardNum}'">
 							<th><a>${list.boardNum}</a></th>
 							<td>${list.boardTitle}</td>
-							<td>${list.userId}님</td>
+							<td>${list.userId}</td>
 							<td>${list.regDate}</td>
 						</tr>
 					</c:forEach>
