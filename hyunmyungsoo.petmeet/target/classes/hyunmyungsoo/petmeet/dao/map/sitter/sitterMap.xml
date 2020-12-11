@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
    'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='hyunmyungsoo.petmeet.dao.map.sitter.SitterMap'>
-<<<<<<< HEAD
 	<select id='selectSitters' resultMap='sitterMap'>
 		select * 
 		from sitters
@@ -31,23 +30,26 @@
 		<result property='sitterFileName' column='sitter_file_name'/>
 	</resultMap>
 	
-=======
->>>>>>> branch 'master' of https://github.com/aquatixo/hyunmyungsoo.petmeet2.git
 	<insert id='insertSitter'>
 		insert into sitters 
 		values (sitters_sitternum_seq.nextval, #{userId}, 
-		#{sitterStart}, #{sitterFinish}, #{sitterPetType}, #{sitterPetSize},
-		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 0, <!-- 펫시터 등록할 때 평점을 입력해야한다? 좀 이상함 -->
+		#{sitterStart}, #{sitterFinish}, #{sitterPetType}, #{sitterPetSize, jdbcType=VARCHAR},
+		#{sitterLocSi}, #{sitterLocGu}, #{sitterLocDong}, 4, <!-- 펫시터 등록할 때 평점을 입력해야한다? 좀 이상함 -->
 		#{sitterTitle}, #{sitterContent}, #{sitterFileName})
 	</insert>
 	
 	<update id='updateSitter'>
 		update sitters
 		set sitter_start = #{sitterStart}, sitter_finish = #{sitterFinish},
-		sitter_pet_type = #{sitterPetType}, sitter_pet_size = #{sitterPetSize},
+		sitter_pet_type = #{sitterPetType}, sitter_pet_size = #{sitterPetSize, jdbcType=VARCHAR},
 		sitter_loc_si = #{sitterLocSi}, sitter_loc_gu = #{sitterLocGu}, sitter_loc_dong = #{sitterLocDong},
 		sitter_title = #{sitterTitle}, sitter_content = #{sitterContent},
-		sitter_file_name = '이미집'
+		sitter_file_name = #{sitterFileName}
 		where user_id = #{userId}
 	</update>
+	
+	<delete id='deleteSitter'>
+		delete sitters
+		where user_id = #{userId}
+	</delete>
 </mapper>
