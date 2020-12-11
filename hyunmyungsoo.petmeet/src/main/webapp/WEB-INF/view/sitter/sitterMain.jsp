@@ -23,12 +23,16 @@ $(()=>{
       }
    });
 });
+var imgError6 = function(image) {
+	image.onerror = ""
+	var parent = image.parentElement
+	var parentTag = parent.innerHTML
+	var brokenImageTag = image.outerHTML
+	parent.innerHTML = parentTag.replace(brokenImageTag,
+			'<div class="broken">메인안내 이미지</div>')
+	return true;
 
-$(()=>{
-	$('.sitters').click(()=>{
-		$('#sitterNumForm').submit();
-	})
-})
+}
 </script>
 <%
 	Object sitterList = request.getAttribute("sitterList");
@@ -44,23 +48,23 @@ $(()=>{
    
       	<div class='row fieldset'>
       		<fieldset>
-      		<form id='sitterForm'>
+      		<form id='sitterForm' method='post'>
          		<div class='form-group row mt-3'>
             		<label for='sitterLocation' class='col-2 col-form-label text-right'>위치</label>
             		<div class='col-3'>
-               			<input type='text' class='form-control' id='sitterLocation' />
-            		</div>
-            		<label for='sitterDate' class='col-2 col-form-label text-right'>날짜</label>
+               			<input type='text' class='form-control' id='sitterLocation' name='sitterLocDong' placeholder='논현' />
+            		</div><label for='sitterLocation' class='col-form-label'>동</label>
+            		<label for='sitterDate'class='col-2 col-form-label text-right'>날짜</label>
             		<div class='col-3'>
-               			<input type='date' class='form-control' id='sitterDate'/>
+               			<input type='date' name='sitterStart' class='form-control' id='sitterDate'/>
             		</div>
          		</div>
          		<div class='form-group row justify-content-center'>
             		<label for='animalType' class='col-4 col-form-label text-right mr-2'>반려동물 종류</label>
             		<div class='form-check from-check-inline mt-2'>
-               			<input type='radio' name='amimalType' class='form-check-input' id='dog'/>
+               			<input type='radio' name='sitterPetType' class='form-check-input' id='dog' value='강아지'/>
                			<label class='form-check-label mr-5' for='dog'>강아지</label>
-              	 		<input type='radio' name='amimalType' class='form-check-input' id='cat'/>
+              	 		<input type='radio' name='sitterPetType' class='form-check-input' id='cat' value='고양이'/>
                			<label class='form-check-label mr-4' for='cat'>고양이</label>
             		</div>
             		<div class='col-3'>
@@ -69,56 +73,68 @@ $(()=>{
          		</div>
          
         		<div id='dogRadios' class='text-center form-check from-check-inline mb-3' hidden='true'>
-            		<input type='radio' name='dogRad' class='form-check-input' id='big'/>
+            		<input type='radio' name='sitterPetSize' value='대형견' class='form-check-input' id='big'/>
             		<label class='form-check-label mr-4' for='big'>대형견</label>
-            		<input type='radio' name='dogRad' class='form-check-input' id='mid'/>
+            		<input type='radio' name='sitterPetSize' value='중형견' class='form-check-input' id='mid'/>
             		<label class='form-check-label mr-4' for='mid'>중형견</label>
-            		<input type='radio' name='dogRad' class='form-check-input' id='small'/>
+            		<input type='radio' name='sitterPetSize' value='소형견' class='form-check-input' id='small'/>
             		<label class='form-check-label mr-4' for='small'>소형견</label>
          		</div>
       		</form>
       		</fieldset>
       	</div>
       
+      	
       	<c:choose>
       		<c:when test='${sitterList.size() >0 }'>
       			<c:forEach var='sitter' items='${sitterList }'>
-      				<div id='sitter' class='mt-3 row'>
-	         			<div id='sitterImg' class='col-4 form-group'>
-	            			<div class='text-center mt-2 mr-0 ml-3 myImg'>${sitter.sitterFileName }</div>
-	         			</div>
-	         				
-	         			<div id='sitterInfo' class='col-8 form-group'>
-	            			<div class='row line mt-3 pb-0 mb-0'>
-	            				<c:forEach var='user' items='${userList }'>
-	         					<c:if test='${sitter.userId == user.userId }'>
-	               					<p class='col-3 mr-0 pr-0 sitterFont'><b>${user.userNickname }</b></p>
-	               				</c:if>
-	               				</c:forEach>
-	               				<p class='col-5 mr-0 ml-0 mb-0 mt-2 p-0'>${sitter.sitterLocSi }시 ${sitter.sitterLocGu }구 ${sitter.sitterLocDong }동</p>   
-	            			</div><br>
-	            				
-	            			<div class='row line pt-0 mt-0'>
-	               				<h4 class='col-9 sitterFont'>${sitter.sitterTitle }</h4>
-	               				<p class='col-3 font'>
-	               					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	                 				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-	               					</svg><small>&nbsp;${sitter.sitterRating }</small>
-	               				</p>
-	            			</div>
-	         			</div>
-      				</div>
-      				
-					<form method='post' id='sitterNumForm'>
-	      				<div class='form-group row' hidden>			
-							<input name='sitterNum' type='number' class='form-control' id='sitterNum'
-									value='${sitter.sitterNum}'/>
+     				<a href='/hyunmyungsoo.petmeet5/reservation/sitterMain?sitterNum=${sitter.sitterNum}' id='list'>
+					<div id='sitter' class='mt-3 row thisSitter'>
+						<div id='sitterImg' class='mt-2 ml-2 col-3 form-group'>
+							<img src='../img/sitter${sitter.userId}.PNG' class='mainImg2' onerror='imgError6(this);'> 
 						</div>
-					</form>
-      			</c:forEach>
+						
+						<div id='sitterInfo' class='col-8 form-group'>
+							<div class='row line mt-3 pb-0 mb-0'>
+								<c:forEach var='user' items='${userList }'>
+									<c:if test='${sitter.userId == user.userId }'>
+										<p class='col-3 mr-0 pr-0 sitterFont'>
+											<b>${user.userNickname }</b>
+										</p>
+									</c:if>
+								</c:forEach>
+								<p class='col-5mr-0 ml-0 mb-0 mt-2 p-0'>${sitter.sitterLocSi }시
+									${sitter.sitterLocGu }구 ${sitter.sitterLocDong }동</p>
+							</div>
+							<br>
+							<div class='row line pt-0 mt-0'>
+								<h4 class='col-9 sitterFont'>${sitter.sitterTitle }</h4>
+								<p class='col-3 font'>
+									<svg width="1em" height="1em" viewBox="0 0 16 16"
+										class="bi bi-star-fill" fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg">
+	                 				<path
+											d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+	               					</svg>
+									<small>&nbsp;${sitter.sitterRating }</small>
+								</p>
+							</div>
+						</div>
+						<form method='post' id='sitterNumForm' hidden>
+							<input name='sitterNum' type='number' class='form-control'
+									id='sitterNum' value='${sitter.sitterNum}' />
+						</form>
+					</div>
+					</a>
+				</c:forEach>
       		</c:when>
+      		
+      		<c:otherwise>
+				<div class='font'>현재 시터가 없습니다.</div>					
+			</c:otherwise>
       	</c:choose>
       	
+      
       	<div class='d-flex justify-content-center mt-3'>   
 			<ul class='pagination'>
 				<li class='page-item'><a class='page-link' href='#'><span>«</span></a></li>
