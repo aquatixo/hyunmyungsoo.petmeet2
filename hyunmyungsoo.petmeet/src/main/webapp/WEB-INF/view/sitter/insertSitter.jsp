@@ -32,7 +32,7 @@ $(function() {
      });
    });
 function showImg(input) {
-      if(input.files[0]) { // 파일이 있는지 확인
+      if(input.files[0]) {
          let reader = new FileReader();
                     
          reader.addEventListener('load', () => {
