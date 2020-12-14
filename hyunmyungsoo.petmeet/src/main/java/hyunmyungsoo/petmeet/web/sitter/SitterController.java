@@ -26,27 +26,27 @@ public class SitterController {
 	@Value("img")
 	private String attachDir;
 	
-	@GetMapping("/sitter/sitterMain")
+	@GetMapping("/sitter/listSitter")
 	public String listSitterPage(Model model) {
 		model.addAttribute("sitterList", sitterService.getSitters());
 		model.addAttribute("userList", userService.getUsers());
-		return "sitter/sitterMain";
+		return "sitter/listSitter";
 	}
 	
-	@PostMapping("/sitter/sitterMain")
+	@PostMapping("/sitter/listSitter")
 	public String specificSitter(Model model, @RequestParam("sitterLocDong") String sitterLocDong,
 			@RequestParam("sitterStart") String sitterStart, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize) {
 		model.addAttribute("specificList", sitterService.getSpecSitters(sitterLocDong, sitterStart, sitterPetType, sitterPetSize));
 		model.addAttribute("userList", userService.getUsers());
-		return "sitter/sitterSearch";
+		return "sitter/searchSitter";
 	}
 	
-	@PostMapping("/sitter/sitterSearch")
+	@PostMapping("/sitter/searchSitter")
 	public String specificSitter2(Model model, @RequestParam("sitterLocDong") String sitterLocDong,
 			@RequestParam("sitterStart") String sitterStart, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize) {
 		model.addAttribute("specificList", sitterService.getSpecSitters(sitterLocDong, sitterStart, sitterPetType, sitterPetSize));
 		model.addAttribute("userList", userService.getUsers());
-		return "sitter/sitterSearch";
+		return "sitter/searchSitter";
 	}
 	
 	@GetMapping("/sitter/insertSitter")
@@ -75,7 +75,7 @@ public class SitterController {
 	private void save(String sitterFileName, MultipartFile attachFile) {
 		try {
 			attachFile.transferTo(new File(sitterFileName));
-		}catch(IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
