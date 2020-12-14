@@ -16,10 +16,12 @@ $(() => {
       var choice = $('#animalType option:selected').val();
       if(choice == '강아지') {
          $('#dogType').removeAttr('hidden');
+         $('#dogType').attr('required', true);
       }
       
       else if(choice == '고양이'){
          $('#dogType').attr('hidden', 'true');
+         $('#dogType').attr('required', false);
       }
    });
 });
@@ -32,7 +34,7 @@ $(function() {
      });
    });
 function showImg(input) {
-      if(input.files[0]) {
+      if(input.files[0]) { // 파일이 있는지 확인
          let reader = new FileReader();
                     
          reader.addEventListener('load', () => {

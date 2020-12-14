@@ -12,32 +12,32 @@
 
 <script>
 $(()=>{
-   $('#dog').click(function(){
-      if($(this).prop('checked')==true){
-         $('#dogRadios').removeAttr('hidden');
-         $('#big').attr('required', true);
-      }
-   })
-   $('#cat').click(function(){
-      if($(this).prop('checked')==true){
-         $('#dogRadios').attr('hidden','true');
-         $('#big').attr('required', false);
-      }
-   });
-});
+	   $('#dog').click(function(){
+	      if($(this).prop('checked')==true){
+	         $('#dogRadios').removeAttr('hidden');
+	         $('#big').attr('required', true);
+	      }
+	   })
+	   $('#cat').click(function(){
+	      if($(this).prop('checked')==true){
+	         $('#dogRadios').attr('hidden','true');
+	         $('#big').attr('required', false);
+	      }
+	   });
+	});
 var imgError6 = function(image) {
 	image.onerror = ""
 	var parent = image.parentElement
 	var parentTag = parent.innerHTML
 	var brokenImageTag = image.outerHTML
 	parent.innerHTML = parentTag.replace(brokenImageTag,
-	'<div class="broken">시터 이미지</div>')
+			'<div class="broken carouImg">메인안내 이미지</div>')
 	return true;
 
 }
 </script>
 <%
-	Object sitterList = request.getAttribute("sitterList");
+	Object specificList = request.getAttribute("specificList");
 	Object userList = request.getAttribute("userList");
 %>
 <body>
@@ -54,7 +54,7 @@ var imgError6 = function(image) {
          		<div class='form-group row mt-3'>
             		<label for='sitterLocation' class='col-2 col-form-label text-right'>위치</label>
             		<div class='col-3'>
-               			<input type='text' class='form-control' id='sitterLocation' name='sitterLocDong' placeholder='논현' required />
+               			<input type='text' class='form-control' id='sitterLocation' name='sitterLocDong' placeholder='논현' />
             		</div><label for='sitterLocation' class='col-form-label'>동</label>
             		<label for='sitterDate'class='col-2 col-form-label text-right'>날짜</label>
             		<div class='col-3'>
@@ -64,7 +64,7 @@ var imgError6 = function(image) {
          		<div class='form-group row justify-content-center'>
             		<label for='animalType' class='col-4 col-form-label text-right mr-2'>반려동물 종류</label>
             		<div class='form-check from-check-inline mt-2'>
-               			<input type='radio' name='sitterPetType' class='form-check-input' id='dog' value='강아지' required/>
+               			<input type='radio' name='sitterPetType' class='form-check-input' id='dog' value='강아지'/>
                			<label class='form-check-label mr-5' for='dog'>강아지</label>
               	 		<input type='radio' name='sitterPetType' class='form-check-input' id='cat' value='고양이'/>
                			<label class='form-check-label mr-4' for='cat'>고양이</label>
@@ -88,9 +88,9 @@ var imgError6 = function(image) {
       
       	
       	<c:choose>
-      		<c:when test='${sitterList.size() >0 }'>
-      			<c:forEach var='sitter' items='${sitterList }'>
-     				<a href='/hyunmyungsoo.petmeet/reservation/reservationMain?sitterNum=${sitter.sitterNum}' id='list'>
+      		<c:when test='${specificList.size() >0 }'>
+      			<c:forEach var='sitter' items='${specificList }'>
+     				<a href='/hyunmyungsoo.petmeet/reservation/sitterMain?sitterNum=${sitter.sitterNum}' id='list'>
 					<div id='sitter' class='mt-3 row thisSitter'>
 						<div id='sitterImg' class='mt-2 ml-2 col-3 form-group'>
 							<img src='../img/sitter${sitter.userId}.PNG' class='mainImg2' onerror='imgError6(this);'> 

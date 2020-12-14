@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import hyunmyungsoo.petmeet.service.sitter.SitterService;
 import hyunmyungsoo.petmeet.service.user.UserService;
 
-@Controller("yjcon")
+@Controller
 public class SitterController {
 	@Autowired private SitterService sitterService;
 	@Autowired private UserService userService;
@@ -31,6 +31,22 @@ public class SitterController {
 		model.addAttribute("sitterList", sitterService.getSitters());
 		model.addAttribute("userList", userService.getUsers());
 		return "sitter/sitterMain";
+	}
+	
+	@PostMapping("/sitter/sitterMain")
+	public String specificSitter(Model model, @RequestParam("sitterLocDong") String sitterLocDong,
+			@RequestParam("sitterStart") String sitterStart, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize) {
+		model.addAttribute("specificList", sitterService.getSpecSitters(sitterLocDong, sitterStart, sitterPetType, sitterPetSize));
+		model.addAttribute("userList", userService.getUsers());
+		return "sitter/sitterSearch";
+	}
+	
+	@PostMapping("/sitter/sitterSearch")
+	public String specificSitter2(Model model, @RequestParam("sitterLocDong") String sitterLocDong,
+			@RequestParam("sitterStart") String sitterStart, @RequestParam("sitterPetType") String sitterPetType, @RequestParam(value = "sitterPetSize", required=false) String sitterPetSize) {
+		model.addAttribute("specificList", sitterService.getSpecSitters(sitterLocDong, sitterStart, sitterPetType, sitterPetSize));
+		model.addAttribute("userList", userService.getUsers());
+		return "sitter/sitterSearch";
 	}
 	
 	@GetMapping("/sitter/insertSitter")
@@ -65,9 +81,11 @@ public class SitterController {
 	}
 
 	@GetMapping("/sitter/upDelSitter")
-	public String updDelSitterPage(Model model, HttpSession session) {
+	public String updDelSitterPage(Model model, HttpSession session) throws ParseException {
 		String userId = session.getAttribute("userEmail").toString();
 		model.addAttribute("sitter", sitterService.getSitter(userId));
+		model.addAttribute("sitterStartDate", sitterService.getSitterDate(userId, 1));
+		model.addAttribute("sitterFinishDate", sitterService.getSitterDate(userId, 2));
 		return "sitter/upDelSitter";
 	}
 	
