@@ -3,9 +3,10 @@ package hyunmyungsoo.petmeet.service.board;
 import java.util.List;
 
 import hyunmyungsoo.petmeet.domain.Board;
+import hyunmyungsoo.petmeet.domain.Paging;
 
 public interface BoardService {
-	List<Board> getBoards();
+	List<Board> getBoards(Paging page);
 	
 	boolean addBoard(Board board);
 	
@@ -22,6 +23,6 @@ public interface BoardService {
 	boolean fixBoard(Board board);
 	boolean delBoard(int boardNum);
 	
-	//void assignSitter(HttpSession session, String boardTitle, String boardContent, Date regDate, String boardFile);
+	int countBoard();
 }
 

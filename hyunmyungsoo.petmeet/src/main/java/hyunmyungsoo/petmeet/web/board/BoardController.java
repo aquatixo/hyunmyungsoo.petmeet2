@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import hyunmyungsoo.petmeet.domain.Paging;
 import hyunmyungsoo.petmeet.service.board.BoardService;
 import hyunmyungsoo.petmeet.service.comment.CommentService;
 import hyunmyungsoo.petmeet.service.user.UserService;
@@ -60,11 +61,25 @@ public class BoardController {
 	
 	//listBoard
 	@GetMapping("/board/listBoard")
-	public String boardLookUp(Model model) {
-		model.addAttribute("boardList", boardService.getBoards());
-		model.addAttribute("userList", userService.getUsers());
+	public String boardList(Paging page, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		System.out.println(userService.getUsers());
+		int total = boardService.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", page);
+		
+		model.addAttribute("userList", userService.getUsers());
+		model.addAttribute("viewAll", boardService.getBoards(page));
+		
 		return "board/listBoard";
 	}
 	
