@@ -11,7 +11,6 @@
 	Object userList = request.getAttribute("userList");
 %>
 <script>
-	//수정
 	$(function(){ 
 		$(".upBoard").click(function() {
 			   var boardNum = $(this).attr('id').substr(1);
@@ -27,16 +26,13 @@
 	   parent.innerHTML = parentTag.replace(brokenImageTag,
 		'<div></div>')
 	   return true;
-
 	   }	
 </script>
 <body>
 <div class='container'>
   	<%@ include file= '../include/header.jsp' %>
 	<%@ include file= '../include/nav.jsp' %>
-	
     <h3 class='titleFont'>자유게시판</h3>
-    
     <table class='table'>
       <tr class='thead'>
          <th colspan='12' class='font'>${board.boardTitle}
@@ -65,29 +61,19 @@
              <br>
          </td>
       </tr>
-   
-   </table>
-   
-   
-      
-      <!-- 게시글 삭제 -->
+     </table>
       <hr class='color'>      
       <div class='d-flex mt-4'>
           <input type='button' class='btn btn-outline-primary mr-1 font' value='목록' value='list' id='list' onclick="location.href='/hyunmyungsoo.petmeet/admin/board/listBoard'">
           <div class='flex-fill'></div> 
-      
-          <!-- a를 넣어야지 int로,, 이유는 모름,,ㅎㅎ-->
-
 	      <form action='view/del' method='post'>
 	        <div class='form-group row' hidden>
 	           <input name='boardNum' type='text' class='form-control' id='${board.boardNum}'
 	                  value='${board.boardNum}' />
 	        </div>
-         
 	        <button type='button' class='btn btn-outline-danger mr-2 font'
 	               	data-toggle='modal' data-dismiss='modal'
             		data-target='#delBoardBtn'>삭제</button>
-
 	         <div class='modal fade' id='delBoardBtn' tabindex='-1'>
 	            <div class='modal-dialog'>
 	               <div class='modal-content'>
@@ -106,6 +92,5 @@
 	       </form>
 	     </div>
 	  </div>
-
 </body>
 </html> 
