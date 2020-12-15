@@ -9,7 +9,54 @@
 <%@ include file= '../include/library.jsp' %>
 <title>Pet & Meet</title>
 </head>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; 
+                var extraRoadAddr = '';
 
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+              
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+               
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                 if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                 if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
 <script>
 $(()=>{
 	   $('#dog').click(function(){
@@ -52,10 +99,17 @@ var imgError6 = function(image) {
       		<fieldset>
       		<form id='sitterForm' method='post'>
          		<div class='form-group row mt-3'>
-            		<label for='sitterLocation' class='col-2 col-form-label text-right'>위치</label>
-            		<div class='col-3'>
-               			<input type='text' class='form-control' id='sitterLocation' name='sitterLocDong' placeholder='논현' />
-            		</div><label for='sitterLocation' class='col-form-label'>동</label>
+            		<label for='sitterLocation' class='col-2 col-form-label text-right'>위치</label> 
+            		<input type="text" id="sample4_postcode" placeholder="우편번호"> 
+            		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+            	</div>
+            	<div class='form-group row justify-content-center'>
+            		<input type="text" class='col-2' id="sample4_roadAddress" placeholder="도로명주소"> 
+            		<input type="text" class='col-2' id="sample4_jibunAddress" placeholder="지번주소"> 
+            		<span id="guide" style="color: #999; display: none"></span> 
+            		<input type="text" class='col-2' id="sample4_extraAddress" name='sitterLocDong' placeholder="참고항목">
+            	</div>
+				<div class='form-group row'>
             		<label for='sitterDate'class='col-2 col-form-label text-right'>날짜</label>
             		<div class='col-3'>
                			<input type='date' name='sitterStart' class='form-control' id='sitterDate'/>
@@ -64,7 +118,7 @@ var imgError6 = function(image) {
          		<div class='form-group row justify-content-center'>
             		<label for='animalType' class='col-4 col-form-label text-right mr-2'>반려동물 종류</label>
             		<div class='form-check from-check-inline mt-2'>
-               			<input type='radio' name='sitterPetType' class='form-check-input' id='dog' value='강아지'/>
+               			<input type='radio' name='sitterPetType' class='form-check-input' id='dog' value='강아지' required/>
                			<label class='form-check-label mr-5' for='dog'>강아지</label>
               	 		<input type='radio' name='sitterPetType' class='form-check-input' id='cat' value='고양이'/>
                			<label class='form-check-label mr-4' for='cat'>고양이</label>
@@ -85,12 +139,11 @@ var imgError6 = function(image) {
       		</form>
       		</fieldset>
       	</div>
-      
       	
       	<c:choose>
       		<c:when test='${specificList.size() >0 }'>
       			<c:forEach var='sitter' items='${specificList }'>
-     				<a href='/hyunmyungsoo.petmeet/reservation/sitterMain?sitterNum=${sitter.sitterNum}' id='list'>
+     				<a href='/hyunmyungsoo.petmeet/reservation/listReservation?sitterNum=${sitter.sitterNum}' id='list'>
 					<div id='sitter' class='mt-3 row thisSitter'>
 						<div id='sitterImg' class='mt-2 ml-2 col-3 form-group'>
 							<img src='../img/sitter${sitter.userId}.PNG' class='mainImg2' onerror='imgError6(this);'> 
@@ -135,18 +188,6 @@ var imgError6 = function(image) {
 				<div class='font'>현재 시터가 없습니다.</div>					
 			</c:otherwise>
       	</c:choose>
-      	
-      
-      	<div class='d-flex justify-content-center mt-3'>   
-			<ul class='pagination'>
-				<li class='page-item'><a class='page-link' href='#'><span>«</span></a></li>
-               	<li class='page-item'><a class='page-link' href='#'>1</a></li>
-               	<li class='page-item'><a class='page-link' href='#'>2</a></li>
-               	<li class='page-item'><a class='page-link' href='#'>3</a></li>
-               	<li class='page-item'><a class='page-link' href='#'>4</a></li>
-               	<li class='page-item'><a class='page-link' href='#'><span>»</span></a></li>
-            </ul>
-		</div>
       	<%@ include file= '../include/footer.jsp' %>
    </div>
 </body>
