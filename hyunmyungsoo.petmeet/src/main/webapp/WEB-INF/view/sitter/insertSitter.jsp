@@ -10,16 +10,66 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <title>Pet & Meet</title>
 </head>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; 
+                var extraRoadAddr = '';
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+              
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+               
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                // document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                /*  if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                } */
+
+               /*  var guideTextBox = document.getElementById("guide");
+                 if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                } */
+            }
+        }).open();
+    }
+</script>
 <script>
 $(() => {
    $('#animalType').click(function(){
       var choice = $('#animalType option:selected').val();
       if(choice == '강아지') {
          $('#dogType').removeAttr('hidden');
+         $('#dogType').attr('required', true);
       }
       
       else if(choice == '고양이'){
          $('#dogType').attr('hidden', 'true');
+         $('#dogType').attr('required', false);
       }
    });
 });
@@ -32,7 +82,7 @@ $(function() {
      });
    });
 function showImg(input) {
-      if(input.files[0]) {
+      if(input.files[0]) { // 파일이 있는지 확인
          let reader = new FileReader();
                     
          reader.addEventListener('load', () => {
@@ -97,14 +147,12 @@ $(() => {
             </div>
 
             <div class='form-group row sitterOption mt-2'>
-               <label for='sitterLocation' class='col-2 font mt-1 mr-0 pr-0'>위치 입력</label>
-               <input type='text' class='form-control col-2 font color' name='sitterLocSi'
-                  id='sitterLocation' placeholder='서울' maxlength='10' required /><label class='font mt-1'>시</label>
-               <input type='text' class='form-control col-2 ml-3 font color' name='sitterLocGu'
-                  id='sitterLocation' placeholder='강남' maxlength='10' required /><label class='font mt-1'>구</label>
-               <input type='text' class='form-control col-2 ml-3 font color' name='sitterLocDong'
-                  id='sitterLocation' placeholder='논현' maxlength='10' required /><label class='font mt-1'>동</label>
-               
+               <label for='sitterLocation' class='col-2 font mt-3 mr-0 pr-0'>위치 입력</label>
+               <div class='form-group row mt-3'>
+            		<input type="text" class='col-3' name='sitterPostNum' id="sample4_postcode" placeholder="우편번호"> 
+            		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+            		<input type="text" name='sitterLocOrg' id="sample4_jibunAddress" placeholder="지번주소"> 
+            	</div>
             </div>
             <div class='row sitterOption mt-2'>
                <label for='sitterDate' class='col-2 font mt-1 mr-0 pr-0'>기간 선택</label>
