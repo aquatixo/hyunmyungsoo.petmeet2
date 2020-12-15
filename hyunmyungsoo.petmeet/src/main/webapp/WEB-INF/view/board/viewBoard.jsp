@@ -121,58 +121,64 @@
    <!-- 댓글 삭제 -->
     <hr class='color'> 
      <form>  
-	   	<c:forEach var="list" items="${commentList}">
-	   	
-			  <div class='row ml-3'>
-			  	<span>
-					<c:forEach var='user' items='${userList}'>
-						<c:if test='${list.userId == user.userId}'>
-							${user.userNickname}
-						</c:if>
-					</c:forEach>
-				</span>			    
-		      </div>
-		      
-		      
-		      <div class='row ml-3'>
-		      	<span class='commentDate'>${list.regDate}</span>
-		      </div>
-		      <div class='row ml-3 mb-3'>
-		         <input value='${list.commentContent}' readonly='readonly' id='textbox' class='form-control col-11'/>
-		      </div>
-		      
-          	 <div class='form-group row' hidden>			
-			 	<input name='commentNum' type='text' class='form-control' id='commentNum'
-						value='${list.commentNum}'/>
-				<input name='boardNum' type='text' class='form-control' id='boardNum'
-				value='${board.boardNum}'/>
-			 </div>
-		      
-		     <div class='d-flex justify-content-end mt-1'>
-				<c:if test='${list.userId eq idForDel}'>
-					<a href='/hyunmyungsoo.petmeet/board/viewBoard/del?commentNum=${list.commentNum}&boardNum=${board.boardNum}' 
-					class='btn btn-danger mr-1'>삭제</a> 
-				</c:if>		
-			  </div>
-			   
-			<!-- 모달 댓글 삭제 -->
-	      	  <div id='delComment' class='modal fade' tabindex='-1'>
-		         <div class='modal-dialog'>
-		            <div class='modal-content'>
-		               <div class='modal-body'>
-		                  <div class='row justify-content-center'>
-		                     <p>댓글을 삭제하겠습니까?</p>
-		                  </div>
-							<div class='row justify-content-center'>
-							<a href='/hyunmyungsoo.petmeet/board/viewBoard/del?commentNum=${list.commentNum}&boardNum=${board.boardNum}' class='btn btn-danger mr-1'>삭제</a>
-							<button type='button' class='btn btn-secondary'
-							data-dismiss='modal'>취소</button>
-		              	 </div>
-		              </div>
-		            </div>
-		         </div>
-		      </div>   
-		</c:forEach>
+     	<c:choose>
+		    <c:when test='${commentList.size() >0 }'>
+			   	<c:forEach var="list" items="${commentList}"  varStatus="vs">
+					  <div class='row ml-3'>
+					  	<span>
+							<c:forEach var='user' items='${userList}'>
+								<c:if test='${list.userId == user.userId}'>
+									${user.userNickname}
+								</c:if>
+							</c:forEach>
+						</span>			    
+				      </div>
+				      
+				      <div class='row ml-3'>
+				      	<span class='commentDate'>${list.regDate}</span>
+				      </div>
+				      <div class='row ml-3 mb-3'>
+				         <input value='${list.commentContent}' readonly='readonly' id='textbox' class='form-control col-11'/>
+				      </div>
+				      
+		          	 <div class='form-group row' hidden>			
+					 	<input name='commentNum' type='text' class='form-control' id='commentNum'
+								value='${list.commentNum}'/>
+						<input name='boardNum' type='text' class='form-control' id='boardNum'
+						value='${board.boardNum}'/>
+					 </div>
+				      
+				     <div class='d-flex justify-content-end mt-1'>
+						<c:if test='${list.userId eq idForDel}'>
+							<input type='button' class='btn btn-danger mr-1' 
+							data-toggle='modal' data-dismiss='modal' value='삭제'
+							data-target='#delComment${vs.index}' data-id="${list.commentNum}"/>		  
+						</c:if>		
+					  </div>
+
+			      	  <div id='delComment${vs.index}' class='del modal fade' tabindex='-1'>
+				         <div class='modal-dialog'>
+				            <div class='modal-content'>
+				               <div class='modal-body'>
+				                  <div class='row justify-content-center'>
+				                     <p>댓글을 삭제하겠습니까?</p>
+				                  </div>
+									<div class='row justify-content-center'>
+									<input type='button' class='del2 btn btn-danger mr-1' id='Num' value='삭제 ' onclick="location.href='/hyunmyungsoo.petmeet/board/viewBoard/del?commentNum=${list.commentNum}&boardNum=${board.boardNum}'">
+									<button type='button' class='btn btn-secondary'
+									data-dismiss='modal'>취소</button>
+				              	 </div>
+				              </div>
+				            </div>
+				         </div>
+				      </div>   
+				      
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class='font ml-2'>현재 댓글이 없습니다.</div>			
+		    </c:otherwise>
+	    </c:choose>
      </form>
              
       

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import hyunmyungsoo.petmeet.domain.Paging;
 import hyunmyungsoo.petmeet.service.board.BoardService;
 import hyunmyungsoo.petmeet.service.user.UserService;
 
@@ -24,9 +25,24 @@ public class AdminBoardController {
 	
 	//listBoard
 	@GetMapping("/admin/board/listBoard")
-	public String boardLookUp(Model model) {
-		model.addAttribute("boardList", boardService.getBoards());
+	public String boardList(Paging page Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		
+		int total = boardService.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		page = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", page);
+		
 		model.addAttribute("userList", userService.getUsers());
+		model.addAttribute("boardList", boardService.getBoards(page));
 		
 		return "admin/board/listBoard";
 	}

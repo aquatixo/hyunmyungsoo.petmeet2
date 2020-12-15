@@ -43,21 +43,28 @@
 					</tr>
 				</thead>
 				<tbody class='text'>
-					<c:forEach var="list" items="${viewAll}">
-						<tr id="${list.boardNum}" class="getBoard"
-						onclick="location.href='/hyunmyungsoo.petmeet/board/view?boardNum=${list.boardNum}'">
-							<th><a>${list.boardNum}</a></th>
-							<td>${list.boardTitle}</td>
-							<td>
-								<c:forEach var='user' items='${userList}'>
-									<c:if test='${list.userId == user.userId}'>
-										${user.userNickname}
-									</c:if>
-								</c:forEach>
-							</td>
-							<td>${list.regDate}</td>
-						</tr>			
-					</c:forEach>
+					<c:choose>
+		      			<c:when test='${boardList.size() >0 }'>
+							<c:forEach var="list" items="${boardList}">
+								<tr id="${list.boardNum}" class="getBoard"
+								onclick="location.href='/hyunmyungsoo.petmeet/board/view?boardNum=${list.boardNum}'">
+									<th><a>${list.boardNum}</a></th>
+									<td>${list.boardTitle}</td>
+									<td>
+										<c:forEach var='user' items='${userList}'>
+											<c:if test='${list.userId == user.userId}'>
+												${user.userNickname}
+											</c:if>
+										</c:forEach>
+									</td>
+									<td>${list.regDate}</td>
+								</tr>			
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<th class='font'>현재 게시글이 없습니다.</th>			
+					    </c:otherwise>
+				    </c:choose>
 				</tbody>
 			</table>
 			<div class='form-group row' hidden>

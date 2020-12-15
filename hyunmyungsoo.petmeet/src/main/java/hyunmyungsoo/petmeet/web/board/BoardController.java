@@ -74,11 +74,11 @@ public class BoardController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "5";
 		}
-		vo = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		page = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", page);
 		
 		model.addAttribute("userList", userService.getUsers());
-		model.addAttribute("viewAll", boardService.getBoards(page));
+		model.addAttribute("boardList", boardService.getBoards(page));
 		
 		return "board/listBoard";
 	}
