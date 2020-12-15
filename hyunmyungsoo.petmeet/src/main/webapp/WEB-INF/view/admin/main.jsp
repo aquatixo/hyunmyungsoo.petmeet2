@@ -1,6 +1,9 @@
 <%@ page language='java' contentType='text/html; charset=UTF-8' pageEncoding='utf-8' isELIgnored='false'%>
 <%
 	session.setAttribute("main", "main");
+	Object userCnt = request.getAttribute("userCnt");
+	Object sitterCnt = request.getAttribute("sitterCnt");
+	Object boardCnt = request.getAttribute("boardCnt");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,13 +18,13 @@
      
 		<div class='row'>
 			<div class='offset-2 col-4'>
-				<a href='#' 
-				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'>회원수<br>7명
+				<a href='user/userList' 
+				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'>회원수<br>${userCnt}개
 	            </a>
 			</div>
 			<div class='col-4'>
-				<a href='#'
-				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'>펫 시터 게시판 글의 수<br>6개
+				<a href='sitter/listSitter'
+				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'>펫 시터 게시판 글의 수<br>${sitterCnt}개
 				</a>
 			</div>
 		</div>
@@ -32,8 +35,8 @@
 			</a>
 		</div>
 		<div class='col-4'>
-			<a href='#'
-				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'> 자유게시판 글의 수<br>5개
+			<a href='board/listBoard'
+				class='btn btn-outline-primary d-flex justify-content-center align-items-center adminMainBtnSize'> 자유게시판 글의 수<br>${boardCnt}개
 			</a>
 		</div>
 		</div>
