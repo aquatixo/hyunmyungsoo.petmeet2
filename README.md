@@ -7,7 +7,7 @@
 <p>
 ✔ 로그인 화면에서 관리자로 로그인하여 관리자 페이지로 이동한다.<br>
    &nbsp; 📝아이디 - admin<br> 
-   &nbsp;📝비밀번호 - admin
+   &nbsp; 📝비밀번호 - admin
 </p>  
 <img width="400" src="https://user-images.githubusercontent.com/49936855/103501036-56982200-4e90-11eb-82a7-0b0c02155e2f.png">
 
