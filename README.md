@@ -146,6 +146,8 @@
 
 <p>
 ✔ 예약한 회원으로 로그인한다.
+</p>
+<p>
 ✔ 마이페이지에서 예약 확인 버튼을 눌러 예약 확인 화면으로 이동한다. 
 </p>
 <img width="400" src="https://user-images.githubusercontent.com/49936855/103504422-b4ca0280-4e9a-11eb-933a-bbcdc2c0cc2d.png"><br>
